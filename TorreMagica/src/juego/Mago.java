@@ -16,7 +16,7 @@ public class Mago {
 	ArrayList<Disparo> lDisparo= new ArrayList<Disparo>();//nueva version
 	public Disparo d;
 	boolean derecha,muerte,contacto=false;//nuevo 
-	int aux;
+	int aux,velocidad;
 	Mago(double x, double y, double ancho,double alto,double angulo){
 		this.x=x;
 		this.y=y;

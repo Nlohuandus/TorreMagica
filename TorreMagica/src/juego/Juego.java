@@ -58,7 +58,7 @@ public class Juego extends InterfaceJuego
 		mago.Dibujar(entorno);
 		dibujarPersonajes();
 		entorno.dibujarRectangulo(ancho/2, alto-110, ancho+30, (alto-margen)+20,0.0, Color.gray);
-		if(mago.isEstado()) {
+		if(mago.isEstado() && !ganar()) {
 			fisicas();
 			mover();
 			comportamientoEnemigo(ancho);
@@ -79,7 +79,7 @@ public class Juego extends InterfaceJuego
 		
 
 		//System.out.println("pos x: "+mago.getPosX());
-		//System.out.println("pos y: "+mago.getPosY());
+		System.out.println("pos y: "+personajes[1].getPosY());
 		//System.out.println("pos y viga: "+viga2.posy);
 		//System.out.println("pos x viga bordIz: "+viga2.bordeIz);
 		//System.out.println("pos x viga bordDer: "+viga2.bordeDer);
@@ -312,6 +312,16 @@ public class Juego extends InterfaceJuego
 		for(int i=0;i<contra.length;i++) {
 			contra[i]=false;
 		}
+	}
+	
+	public boolean ganar() {
+		for (int i=1;i<personajes.length;i++) {
+			if(personajes[i].getPosY()<700) {
+				return false;
+			}
+		}
+	
+		return true;
 	}
 	
 
