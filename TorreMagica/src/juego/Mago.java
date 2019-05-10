@@ -15,8 +15,8 @@ public class Mago {
 	private boolean estado,saltar;
 	ArrayList<Disparo> lDisparo= new ArrayList<Disparo>();//nueva version
 	public Disparo d;
-	boolean derecha;//nueva version
-	int aux,cantDisparos=0;
+	boolean derecha,muerte;//nuevo 
+	int aux;
 	Mago(double x, double y, double ancho,double alto,double angulo){
 		this.x=x;
 		this.y=y;
@@ -55,12 +55,11 @@ public class Mago {
 	}
 	void caer() {
 		aux+=1;
-		System.out.println("aux "+aux);
+		//System.out.println("aux "+aux);
 		this.y = y + peso;
 		if (aux>11 && aux<13) {
 			if(saltar==false) {
 				lDisparo.add(disparar());
-				this.cantDisparos++;
 			}
 			
 			//aux=0;                        //  agregar nueva version
@@ -80,6 +79,9 @@ public class Mago {
 	}
 	void inicio(int i) {
 		this.y=i;
+	}
+	public void setPosX(int x) {
+		this.x=x;
 	}
 
 	public double getPosX() {
@@ -110,6 +112,15 @@ public class Mago {
 						setEstado(false);
 					}
 				}
+			}else {//nuevo
+				if(personajes[i].getPosY()<=getPosY() && personajes[i].getPosY()>=getPosY()-ancho) {
+					if(personajes[i].getPosX()<=getPosX() && personajes[i].getPosX()>=getPosX()-ancho) {
+						personajes[i].muerte=true;
+					}else if(personajes[i].getPosX()>=getPosX() && personajes[i].getPosX()<=getPosX()+ancho) {
+						personajes[i].muerte=true;
+					}
+				}
+				
 			}
 
 		}

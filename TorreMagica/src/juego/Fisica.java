@@ -1,7 +1,5 @@
 package juego;
 
-import java.util.ArrayList;
-
 public class Fisica {
 	public static boolean colision(Mago mago, Viga[] vigas) {
 		for(int i=0;i<vigas.length;i++) {
@@ -20,7 +18,7 @@ public class Fisica {
 		if(mago.getPosY()<-5) {
 			mago.inicio(margen);
 		}
-		if(mago.getPosY()>margen) {
+		if(mago.getPosY()>margen && mago.muerte==false) {
 			mago.inicio(0);
 		}
 		
@@ -30,9 +28,9 @@ public class Fisica {
 	public static boolean congelar(Mago enemigo, Mago mago) {
 			//if(personajes[i].getPosY()<=getPosY() && personajes[i].getPosY()>=getPosY()-ancho)
 		if(mago.lDisparo.size()>0) {
-			int i=mago.cantDisparos-1;
-			System.out.println("posy disparo "+mago.lDisparo.get(i).getY());
-			System.out.println("posy enemigo: "+enemigo.getPosY());
+			int i=mago.lDisparo.size()-1;
+			//System.out.println("posy disparo "+mago.lDisparo.get(i).getY());
+			//System.out.println("posy enemigo: "+enemigo.getPosY());
 			if(enemigo.getPosY()<=mago.lDisparo.get(i).getY() && enemigo.getPosY()>=mago.lDisparo.get(i).getY()-50 ) {
 				if(enemigo.getPosX()<=mago.lDisparo.get(i).getX() && enemigo.getPosX()>=mago.lDisparo.get(i).getX()-50 ) {
 					System.out.println("pum!!!");	
@@ -49,3 +47,4 @@ public class Fisica {
 
 
 }
+

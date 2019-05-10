@@ -1,6 +1,5 @@
 ﻿package juego;
 import java.awt.Color;
-import java.util.ArrayList;
 
 import entorno.Entorno;
 import entorno.InterfaceJuego;
@@ -20,7 +19,7 @@ public class Juego extends InterfaceJuego
 	boolean mantener=false;
 	boolean[] contra= new boolean [cantEnemigos];
 	int contador=0,vueltasSalto=23,margen;
-	int aux=0;
+	
 
 	
 	// Variables y métodos propios de cada grupo
@@ -90,29 +89,35 @@ public class Juego extends InterfaceJuego
 	
 	public void mover() {
 		if(entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) {
-			for(int i=0;i<2;i++) {
-				mago.retroceder();
-				//derecha=false; borrar en nueva version
-			}
-			if(mago.isSaltar()) {
-				for(int i=0;i<4;i++) {
+			if(mago.getPosX()>30) {
+				for(int i=0;i<2;i++) {
 					mago.retroceder();
 					//derecha=false; borrar en nueva version
-					
+				}
+				if(mago.isSaltar()) {
+					for(int i=0;i<4;i++) {
+						mago.retroceder();
+						//derecha=false; borrar en nueva version
+						
+					}
 				}
 			}
+
 		}
 		if(entorno.estaPresionada(entorno.TECLA_DERECHA)) {
-			for(int i=0;i<2;i++) {
-				mago.avanzar();
-			}
-			
-			if(mago.isSaltar()) {
-				for(int i=0;i<4;i++) {
+			if(mago.getPosX()<ancho-30) {//bordes!!! agregar
+				for(int i=0;i<2;i++) {
 					mago.avanzar();
 				}
 				
+				if(mago.isSaltar()) {
+					for(int i=0;i<4;i++) {
+						mago.avanzar();
+					}
+					
+				}
 			}
+
 		}
 		if(entorno.sePresiono(entorno.TECLA_ARRIBA)) {
 			mago.setSaltar(true);
@@ -244,7 +249,25 @@ public class Juego extends InterfaceJuego
 					
 					}
 				}
-			}		
+			}else if(personajes[i].muerte) {
+				
+				if (contra[i]==true) {
+					personajes[i].avanzar();
+					personajes[i].avanzar();
+				}else {
+					personajes[i].retroceder();
+					personajes[i].retroceder();
+				}
+				if(personajes[i].getPosX()<0 && contra[i]==false) {
+					this.contra[i]=true;
+				}if (contra[i]==true && personajes[i].getPosX()>=ancho) {
+					this.contra[i]=false;
+				}
+				if(personajes[i].getPosY()>margen+10) {
+					personajes[i].inicio(margen+50);
+					
+				}
+			}
 		}
 				
 	}
@@ -260,8 +283,7 @@ public class Juego extends InterfaceJuego
 
 			if(!Fisica.colision(personajes[i], vigas)) {
 				personajes[i].caer();
-				//disparar=true; borrar
-				//aux=0;   borrar
+
 			}
 		}
 		
