@@ -8,7 +8,7 @@ public class Juego extends InterfaceJuego
 {
 	// El objeto Entorno que controla el tiempo y otros
 	private Entorno entorno;
-	int ancho=600, alto=900,cantEnemigos=3;
+	int ancho=600, alto=900,cantEnemigos=5;
 	Mago[] personajes= new Mago[cantEnemigos];
 	Mago mago;//new Mago(100.0, 80.0, 50.0,50.0, 0);
 	//=new Mago(200.0, 0.0, 50.0,50.0, 0);
@@ -57,7 +57,7 @@ public class Juego extends InterfaceJuego
 		dibujarVigas();
 		mago.Dibujar(entorno);
 		dibujarPersonajes();
-		entorno.dibujarRectangulo(ancho/2, alto-120, ancho, alto-margen,0.0, Color.gray);
+		entorno.dibujarRectangulo(ancho/2, alto-110, ancho+30, (alto-margen)+20,0.0, Color.gray);
 		if(mago.isEstado()) {
 			fisicas();
 			mover();
@@ -210,67 +210,86 @@ public class Juego extends InterfaceJuego
 			//System.out.println("posy: "+personajes[i].getPosY());
 			if(personajes[i].isEstado()) {
 				if(i%2==0 && i!=4) {//los enemigos con i par tendran una comportamiento distinto menos el de i=4
-					if(Fisica.colision(personajes[i], vigas)==false) {
-						if(contra[i]==true) {
-							contra[i]=false;
-						}else {
-							contra[i]=true;
-						}
-					
-					}
-					if (contra[i]==true) {
-						personajes[i].avanzar();
-						personajes[i].avanzar();
-					}else {
-						personajes[i].retroceder();
-					}
-					if(personajes[i].getPosX()<0 && contra[i]==false) {
-						this.contra[i]=true;
-					}if (contra[i]==true && personajes[i].getPosX()>=ancho) {
-						this.contra[i]=false;
-					}
+					compórtamiento2(i);
 				}else {
-					if (contra[i]==false) {
-						personajes[i].avanzar();
+					comportamiento3(i);
+				}
+			}else if(personajes[i].muerte ) {
+				if(personajes[i].contacto) {
+					if(!mago.derecha) {
+						contra[i]=false;
 					}else {
-						personajes[i].retroceder();
+						contra[i]=true;
 					}
-					if(personajes[i].getPosX()<0 && contra[i]==true) {
-						this.contra[i]=false;
-					}if (contra[i]==false && personajes[i].getPosX()>=ancho) {
-						this.contra[i]=true;
-					}
-					if(Fisica.colision(personajes[i], vigas)==false) {
-						if(contra[i]==true) {
-							contra[i]=false;
-						}else {
-							contra[i]=true;
-						}
-					
-					}
+					personajes[i].contacto=false;
 				}
-			}else if(personajes[i].muerte) {
-				
-				if (contra[i]==true) {
-					personajes[i].avanzar();
-					personajes[i].avanzar();
-				}else {
-					personajes[i].retroceder();
-					personajes[i].retroceder();
-				}
-				if(personajes[i].getPosX()<0 && contra[i]==false) {
-					this.contra[i]=true;
-				}if (contra[i]==true && personajes[i].getPosX()>=ancho) {
-					this.contra[i]=false;
-				}
-				if(personajes[i].getPosY()>margen+10) {
-					personajes[i].inicio(margen+50);
-					
-				}
+
+				compórtamiento1(i);
 			}
 		}
 				
 	}
+	public void compórtamiento1(int i) {
+		if (contra[i]==true) {
+			personajes[i].avanzar();
+			personajes[i].avanzar();
+		}else {
+			personajes[i].retroceder();
+			personajes[i].retroceder();
+		}
+		if(personajes[i].getPosX()<0 && contra[i]==false) {
+			this.contra[i]=true;
+		}if (contra[i]==true && personajes[i].getPosX()>=ancho) {
+			this.contra[i]=false;
+		}
+		if(personajes[i].getPosY()>margen+10) {
+			personajes[i].inicio(margen+50);
+			
+		}
+	}
+	public void compórtamiento2(int i) {
+		if(Fisica.colision(personajes[i], vigas)==false) {
+			if(contra[i]==true) {
+				contra[i]=false;
+			}else {
+				contra[i]=true;
+			}
+		
+		}
+		if (contra[i]==true) {
+			personajes[i].avanzar();
+			personajes[i].avanzar();
+		}else {
+			personajes[i].retroceder();
+		}
+		if(personajes[i].getPosX()<0 && contra[i]==false) {
+			this.contra[i]=true;
+		}if (contra[i]==true && personajes[i].getPosX()>=ancho) {
+			this.contra[i]=false;
+		}
+	}
+	
+	public void comportamiento3(int i) {
+		if (contra[i]==false) {
+			personajes[i].avanzar();
+		}else {
+			personajes[i].retroceder();
+		}
+		if(personajes[i].getPosX()<0 && contra[i]==true) {
+			this.contra[i]=false;
+		}if (contra[i]==false && personajes[i].getPosX()>=ancho) {
+			this.contra[i]=true;
+		}
+		if(Fisica.colision(personajes[i], vigas)==false) {
+			if(contra[i]==true) {
+				contra[i]=false;
+			}else {
+				contra[i]=true;
+			}
+		
+		}
+	}
+
 	
 	
 	public void fisicas() {

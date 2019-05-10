@@ -32,16 +32,15 @@ public class Fisica {
 			//System.out.println("posy disparo "+mago.lDisparo.get(i).getY());
 			//System.out.println("posy enemigo: "+enemigo.getPosY());
 			if(enemigo.getPosY()<=mago.lDisparo.get(i).getY() && enemigo.getPosY()>=mago.lDisparo.get(i).getY()-50 ) {
-				if(enemigo.getPosX()<=mago.lDisparo.get(i).getX() && enemigo.getPosX()>=mago.lDisparo.get(i).getX()-50 ) {
-					System.out.println("pum!!!");	
+				if(enemigo.getPosX()<=mago.lDisparo.get(i).getX() && enemigo.getPosX()>=mago.lDisparo.get(i).getX()-50 ) {	
 					return true;
-				}else if(enemigo.getPosX()<=mago.lDisparo.get(i).getX() && enemigo.getPosX()>=mago.lDisparo.get(i).getX()+50 ) {
-					System.out.println("pum!!!");	
+				}else if(enemigo.getPosX()<=mago.lDisparo.get(i).getX() && enemigo.getPosX()>=mago.lDisparo.get(i).getX()+50 ) {	
 					return true;
 				}
 			}
 		
 		}
+		
 		return false;
 	}
 
