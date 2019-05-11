@@ -43,6 +43,27 @@ public class Fisica {
 		
 		return false;
 	}
+	
+	public static void colision(Mago[]personajes,Mago muerto, int i) {
+
+				for(int j=i+1;j<personajes.length;j++) {
+					if(personajes[j].isEstado()) {
+						if(personajes[j].getPosY()<=muerto.getPosY() && personajes[j].getPosY()>=muerto.getPosY()-muerto.ancho) {
+							if(personajes[j].getPosX()<=muerto.getPosX() && personajes[j].getPosX()>=muerto.getPosX()-muerto.ancho) {
+								personajes[j].setEstado(false);
+								personajes[j].muerte=true;
+								personajes[j].contacto=true;
+							}else if(personajes[j].getPosX()>=muerto.getPosX() && personajes[j].getPosX()<=muerto.getPosX()+muerto.ancho) {
+								personajes[j].setEstado(false);
+								personajes[j].muerte=true;
+								personajes[j].contacto=true;
+							}
+						}
+					
+					}	
+				}
+
+			}
 
 
 }

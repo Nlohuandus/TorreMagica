@@ -8,7 +8,7 @@ public class Juego extends InterfaceJuego
 {
 	// El objeto Entorno que controla el tiempo y otros
 	private Entorno entorno;
-	int ancho=600, alto=900,cantEnemigos=5;
+	int ancho=600, alto=900,cantEnemigos=7;
 	Mago[] personajes= new Mago[cantEnemigos];
 	Mago mago;//new Mago(100.0, 80.0, 50.0,50.0, 0);
 	//=new Mago(200.0, 0.0, 50.0,50.0, 0);
@@ -51,7 +51,7 @@ public class Juego extends InterfaceJuego
 	{
 		// Procesamiento de un instante de tiempo
 		// ...
-		Carteles.cartel(entorno,(ancho/2)-100, alto-600,"probamos");
+		//Carteles.cartel(entorno,(ancho/2)-100, alto-600,"probamos");
 		for (Disparo d : mago.lDisparo) {//nueva version
 			d.Dibujar(this.entorno, mago.derecha);//nueva version
 		}
@@ -64,6 +64,7 @@ public class Juego extends InterfaceJuego
 			mover();
 			comportamientoEnemigo(ancho);
 			mago.contacto(personajes);
+			
 
 			if(mago.isSaltar()) {
 				contador++;
@@ -233,10 +234,16 @@ public class Juego extends InterfaceJuego
 				}
 
 				compórtamiento1(i);
+				colision(personajes,personajes[i],i);
 			}
 		}
 				
 	}
+	private void colision(Mago[] personajes2, Mago mago2, int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public void compórtamiento1(int i) {
 		if (contra[i]==true) {
 			personajes[i].avanzar();

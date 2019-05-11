@@ -8,7 +8,7 @@ import entorno.Entorno;
 public class Mago {
 	private double x;
 	private double y;
-	private double ancho;
+	public double ancho;
 	private double alto;
 	private double angulo;
 	private double peso;
