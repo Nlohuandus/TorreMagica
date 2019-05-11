@@ -51,6 +51,7 @@ public class Juego extends InterfaceJuego
 	{
 		// Procesamiento de un instante de tiempo
 		// ...
+		Carteles.cartel(entorno,(ancho/2)-100, alto-600,"probamos");
 		for (Disparo d : mago.lDisparo) {//nueva version
 			d.Dibujar(this.entorno, mago.derecha);//nueva version
 		}
@@ -75,6 +76,13 @@ public class Juego extends InterfaceJuego
 				}
 
 			}
+		}else {
+			if(ganar()) {
+				Carteles.cartel(entorno,(ancho/2)-100, alto-600,"Ganaste");
+			}else {
+				Carteles.cartel(entorno,(ancho/2)-100, alto-600,"PERDEDOR");
+			}
+			
 		}
 		
 
@@ -233,9 +241,13 @@ public class Juego extends InterfaceJuego
 		if (contra[i]==true) {
 			personajes[i].avanzar();
 			personajes[i].avanzar();
+			personajes[i].avanzar();
+			
 		}else {
 			personajes[i].retroceder();
 			personajes[i].retroceder();
+			personajes[i].retroceder();
+			
 		}
 		if(personajes[i].getPosX()<0 && contra[i]==false) {
 			this.contra[i]=true;
