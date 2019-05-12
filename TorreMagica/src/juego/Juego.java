@@ -101,7 +101,17 @@ public class Juego extends InterfaceJuego
 		//System.out.println("pos x viga bordDer: "+viga2.bordeDer);
 
 	}
-	
+	public void comprobar() {
+		mago.mover=false;
+		if(entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) {
+			mago.derecha=false;
+			mago.mover=true;
+		}
+		if(entorno.estaPresionada(entorno.TECLA_DERECHA)) {
+			mago.derecha=true;
+			mago.mover=true;
+		}
+	}
 	
 	public void mover() {
 		if(entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) {
@@ -118,7 +128,6 @@ public class Juego extends InterfaceJuego
 					}
 				}
 			}
-
 		}
 		if(entorno.estaPresionada(entorno.TECLA_DERECHA)) {
 			if(mago.getPosX()<ancho-30) {//bordes!!! agregar
@@ -133,11 +142,12 @@ public class Juego extends InterfaceJuego
 					
 				}
 			}
-
+			
 		}
 		if(entorno.sePresiono(entorno.TECLA_ARRIBA)) {
 			mago.setSaltar(true);
 		}
+		comprobar();
 	}
 	public void posPersonajes() {
 		double x=290,y=70;
@@ -163,7 +173,7 @@ public class Juego extends InterfaceJuego
 		for(int i=0;i<personajes.length;i++) {
 			if(i==0) {
 				if(personajes[i].isEstado()==true) {
-					sprite.dibujar(entorno,mago.getPosX(),mago.getPosY());
+					sprite.dibujar(entorno,mago.getPosX(),mago.getPosY(),mago.derecha,mago.mover);
 					//personajes[i].Dibujar(entorno);
 				}else {
 					personajes[i].Dibujar(entorno,Color.green);
