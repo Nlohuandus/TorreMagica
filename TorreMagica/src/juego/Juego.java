@@ -1,5 +1,8 @@
 ﻿package juego;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.ImageObserver;
 
 import entorno.Entorno;
 import entorno.InterfaceJuego;
@@ -12,13 +15,13 @@ public class Juego extends InterfaceJuego
 	Mago[] personajes= new Mago[cantEnemigos];
 	Mago mago;//new Mago(100.0, 80.0, 50.0,50.0, 0);
 	//=new Mago(200.0, 0.0, 50.0,50.0, 0);
-	
+	Sprite sprite; 
 	//Viga viga= new Viga(150,200);
 	//Viga viga2= new Viga(250,300);
 	Viga[] vigas=new Viga[11];
 	boolean mantener=false;
 	boolean[] contra= new boolean [cantEnemigos];
-	int contador=0,vueltasSalto=23,margen;
+	int contador=0,vueltasSalto=23,margen,incremento=0;
 	
 
 	
@@ -35,6 +38,8 @@ public class Juego extends InterfaceJuego
 		posPersonajes();
 		this.mago=personajes[0];
 		estados();
+		this.sprite=new Sprite(mago.getPosX(),mago.getPosY());
+		
 		
 		// Inicia el juego!
 		this.entorno.iniciar();
@@ -57,8 +62,10 @@ public class Juego extends InterfaceJuego
 		}
 		dibujarVigas();
 		mago.Dibujar(entorno);
+		
 		dibujarPersonajes();
 		entorno.dibujarRectangulo(ancho/2, alto-110, ancho+30, (alto-margen)+20,0.0, Color.gray);
+		
 		if(mago.isEstado() && !ganar()) {
 			fisicas();
 			mover();
@@ -156,7 +163,8 @@ public class Juego extends InterfaceJuego
 		for(int i=0;i<personajes.length;i++) {
 			if(i==0) {
 				if(personajes[i].isEstado()==true) {
-					personajes[i].Dibujar(entorno);
+					sprite.dibujar(entorno,mago.getPosX(),mago.getPosY());
+					//personajes[i].Dibujar(entorno);
 				}else {
 					personajes[i].Dibujar(entorno,Color.green);
 				}
@@ -209,6 +217,7 @@ public class Juego extends InterfaceJuego
 			vigas[i].Dibujar(entorno);
 		}
 	}
+
 	
 	public void comportamientoEnemigo(int ancho) {
 		for(int i=1; i<personajes.length;i++) {
@@ -234,15 +243,12 @@ public class Juego extends InterfaceJuego
 				}
 
 				compórtamiento1(i);
-				colision(personajes,personajes[i],i);
+				Fisica.colision(personajes,personajes[i],i);
 			}
 		}
 				
 	}
-	private void colision(Mago[] personajes2, Mago mago2, int i) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	public void compórtamiento1(int i) {
 		if (contra[i]==true) {
