@@ -23,8 +23,7 @@ public class Juego extends InterfaceJuego
 	boolean[] contra= new boolean [cantEnemigos];
 	Image[]corazones1=new Image[3];
 	Image corazonRoto =new ImageIcon("corazon2.png").getImage();
-	int contador=0,vueltasSalto=23,margen,incremento=0,cont=0;
-	
+	int contador=0,vueltasSalto=23,margen,incremento=0,cont=0, segundos=0;
 	CajasDeTexto tiempo;
 	
 
@@ -69,12 +68,13 @@ public class Juego extends InterfaceJuego
 		for (Disparo d : mago.lDisparo) {//nueva version
 			d.Dibujar(this.entorno);//nueva version
 		}
+		segundos++;
 		dibujarVigas();
 		mago.Dibujar(entorno);
 		
 		dibujarPersonajes();
 		entorno.dibujarRectangulo(ancho/2, alto-110, ancho+30, (alto-margen)+20,0.0, Color.gray);
-		tiempo.dibujar(entorno,"Tiempo :");
+		tiempo.dibujar(entorno,"Tiempo :" + (segundos/60));
 		dibujarCorazones((ancho/2)-250, alto-150);
 		
 		if(mago.isEstado() && !ganar()) {
