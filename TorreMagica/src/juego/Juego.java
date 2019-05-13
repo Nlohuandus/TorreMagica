@@ -21,7 +21,7 @@ public class Juego extends InterfaceJuego
 	Viga[] vigas=new Viga[11];
 	boolean mantener=false;
 	boolean[] contra= new boolean [cantEnemigos];
-	int contador=0,vueltasSalto=23,margen,incremento=0;
+	int contador=0,vueltasSalto=23,margen,incremento=0,tiempoParado=0;
 	
 
 	
@@ -128,6 +128,7 @@ public class Juego extends InterfaceJuego
 					}
 				}
 			}
+			this.tiempoParado=0;
 		}
 		if(entorno.estaPresionada(entorno.TECLA_DERECHA)) {
 			if(mago.getPosX()<ancho-30) {//bordes!!! agregar
@@ -142,10 +143,11 @@ public class Juego extends InterfaceJuego
 					
 				}
 			}
-			
+			this.tiempoParado=0;
 		}
 		if(entorno.sePresiono(entorno.TECLA_ARRIBA)) {
 			mago.setSaltar(true);
+			this.tiempoParado=0;
 		}
 		comprobar();
 	}
@@ -334,9 +336,9 @@ public class Juego extends InterfaceJuego
 			if (Fisica.colision(personajes[0], vigas)) {
 				mago.aux=0;   //agregar en nueva version
 			}
-
 			if(!Fisica.colision(personajes[i], vigas)) {
 				personajes[i].caer();
+				
 
 			}
 		}

@@ -39,7 +39,8 @@ public class Mago {
 	}
 
 	void Dibujar(Entorno e) {
-		e.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, this.angulo, Color.ORANGE);
+		e.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, this.angulo, Color.BLACK);
+
 	}
 	void Dibujar(Entorno e,Color color) {
 		e.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, this.angulo, color);
