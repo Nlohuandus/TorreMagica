@@ -25,7 +25,11 @@ public class Disparo {
 		
 	}
 
+<<<<<<< HEAD
 	void Dibujar(Entorno e, boolean b) {
+=======
+	void Dibujar(Entorno e) {
+>>>>>>> branch 'master' of https://github.com/Nlohuandus/TorreMagica.git
 		e.dibujarRectangulo(this.x, this.y, 5, 5, this.angulo, Color.cyan);
 		if(!b) {
 			e.dibujarImagen(disparoIz, x, y, angulo);
