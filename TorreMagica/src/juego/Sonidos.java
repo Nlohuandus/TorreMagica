@@ -7,7 +7,7 @@ import javax.sound.sampled.Clip;
 public class Sonidos {
 
 	public static void main (String [] args) {
-		gameOver();
+		caminar();
 	}
 	static void reproducir(File sonido) {
 		try {
@@ -15,7 +15,7 @@ public class Sonidos {
 			clip.open(AudioSystem.getAudioInputStream(sonido));
 			clip.start();
 			Thread.sleep(clip.getMicrosecondLength()/1000);
-			//clip.stop();
+			clip.stop();
 		}catch (Exception e) {
 			
 		}
@@ -25,8 +25,16 @@ public class Sonidos {
 		reproducir(gameover);
 	}
 	static void disparo() {
-		File gameover = new File ("Disparo.wav");
-		reproducir(gameover);
+		File disparo = new File ("Disparo.wav");
+		reproducir(disparo);
+	}
+	static void caminar() {
+		File caminar = new File ("Caminar.wav");
+		reproducir(caminar);
+	}
+	static void salto() {
+		File saltar = new File ("Salto.wav");
+		reproducir(saltar);
 	}
 	
 }
