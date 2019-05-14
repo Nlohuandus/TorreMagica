@@ -15,6 +15,7 @@ public class Mago {
 	private boolean estado,saltar;
 	ArrayList<Disparo> lDisparo= new ArrayList<Disparo>();//nueva version
 	public Disparo d;
+	double milisegundos;
 
 	boolean derecha,muerte,contacto=false,mover;//nuevo 
 	int aux,velocidad;
@@ -117,6 +118,11 @@ public class Mago {
 					}
 				}
 			}else {//nuevo
+				milisegundos++;
+				if ((int)milisegundos/60 == 5) {
+					personajes[i].estado=true;
+					milisegundos=0;
+				}
 				if(personajes[i].getPosY()<=getPosY() && personajes[i].getPosY()>=getPosY()-ancho) {
 					if(personajes[i].getPosX()<=getPosX() && personajes[i].getPosX()>=getPosX()-ancho) {
 						personajes[i].muerte=true;
