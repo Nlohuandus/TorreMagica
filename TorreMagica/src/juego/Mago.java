@@ -17,6 +17,7 @@ public class Mago {
 	public Disparo d;
 	boolean derecha,muerte,contacto=false,mover,vulnerable=true,dgolpe=false;//nuevo 
 	int aux,velocidad,cantCorazones=3;
+	double milisegundos;
 	boolean[]corazones={true,true,true};
 	Mago(double x, double y, double ancho,double alto,double angulo){
 		this.x=x;
@@ -71,6 +72,7 @@ public class Mago {
 			}
 	}
 	void saltar() {
+		Sonidos.salto();
 		this.y = y - peso*2;
 	}
 	public boolean isSaltar() {
@@ -151,6 +153,11 @@ public class Mago {
 				}
 				
 			}else {//nuevo
+				milisegundos++;
+				if ((int)milisegundos/60 == 5) {
+					personajes[i].estado=true;
+					milisegundos=0;
+				}
 				if(personajes[i].getPosY()<=getPosY() && personajes[i].getPosY()>=getPosY()-ancho) {
 					if(personajes[i].getPosX()<=getPosX() && personajes[i].getPosX()>=getPosX()-ancho) {
 						personajes[i].muerte=true;

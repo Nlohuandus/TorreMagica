@@ -26,7 +26,7 @@ public class Juego extends InterfaceJuego
 	Image[]corazones1=new Image[3];
 	Image corazonRoto =new ImageIcon("corazon2.png").getImage();
 	int contador=0,vueltasSalto=23,margen,incremento=0,cont=0;
-	
+	Sonidos s=new Sonidos();
 	cajasDeTexto tiempo;
 	
 
@@ -51,6 +51,7 @@ public class Juego extends InterfaceJuego
 		
 		this.sprite=new Sprite(mago.getPosX(),mago.getPosY());
 		this.dS=new DisparoSprite(mago.getPosX(),mago.getPosY());
+		
 		
 		
 		
