@@ -5,18 +5,17 @@ import java.awt.Color;
 import entorno.Entorno;
 
 public class Viga {
-	double ancho,alto,posx,posy;
-	double bordeIz,bordeDer,posyInicial=180;
-	
-	
-	Viga(double x,double y){
+	double ancho, alto, posx, posy;
+	double bordeIz, bordeDer, posyInicial = 180;
+
+	Viga(double x, double y) {
 		setPosx(x);
 		setPosy(y);
 		setAlto(20);
 		setAncho(250);
 		setBordeDer();
 		setBordeIz();
-		
+
 	}
 
 	public double getBordeIz() {
@@ -24,7 +23,7 @@ public class Viga {
 	}
 
 	public void setBordeIz() {
-		this.bordeIz = posx-(ancho/2)-25;
+		this.bordeIz = posx - (ancho / 2) - 25;
 	}
 
 	public double getBordeDer() {
@@ -32,7 +31,7 @@ public class Viga {
 	}
 
 	public void setBordeDer() {
-		this.bordeDer = (posx+ancho/2)+25;
+		this.bordeDer = (posx + ancho / 2) + 25;
 	}
 
 	public double getAncho() {
@@ -66,9 +65,10 @@ public class Viga {
 	public void setPosy(double posy) {
 		this.posy = posy;
 	}
+
 	void Dibujar(Entorno e) {
-			
+
 		e.dibujarRectangulo(this.posx, this.posy, this.ancho, this.alto, 0.0, Color.red);
-		
+
 	}
 }
