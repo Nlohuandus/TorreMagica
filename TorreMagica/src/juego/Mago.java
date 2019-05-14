@@ -15,7 +15,7 @@ public class Mago {
 	private boolean estado,saltar;
 	ArrayList<Disparo> lDisparo= new ArrayList<Disparo>();//nueva version
 	public Disparo d;
-	boolean derecha,muerte,contacto=false,mover,vulnerable=true;//nuevo 
+	boolean derecha,muerte,contacto=false,mover,vulnerable=true,dgolpe=false;//nuevo 
 	int aux,velocidad,cantCorazones=3;
 	boolean[]corazones={true,true,true};
 	Mago(double x, double y, double ancho,double alto,double angulo){
@@ -32,8 +32,10 @@ public class Mago {
 	Disparo disparar() {
 		if(y>310 && y<480) {
 			this.d=new Disparo(this.x,480,this.angulo, this.derecha);
+			
 		}else {
 			this.d=new Disparo(this.x,this.y,this.angulo, this.derecha);//nueva version
+
 		}
 		
 		return d;
@@ -111,8 +113,8 @@ public class Mago {
 					//revisa si el enemigo esta congelado
 					if(personajes[i].getPosY()<=getPosY() && personajes[i].getPosY()>=getPosY()-ancho) {
 						if(personajes[i].getPosX()<=getPosX() && personajes[i].getPosX()>=getPosX()-ancho) {
-							System.out.println("entra");
 							if(vulnerable==true){
+								this.dgolpe=false;
 								this.cantCorazones--;
 								if(cantCorazones>=0){
 									corazones[cantCorazones]=false;
@@ -127,8 +129,11 @@ public class Mago {
 							}
 							
 						}else if(personajes[i].getPosX()>=getPosX() && personajes[i].getPosX()<=getPosX()+ancho) {
-							System.out.println("entra");
+							
 							if(vulnerable==true){
+								this.dgolpe=true;
+								
+
 								this.cantCorazones--;
 								if(cantCorazones>=0){
 									corazones[cantCorazones]=false;

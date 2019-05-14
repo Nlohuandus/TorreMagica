@@ -8,12 +8,13 @@ import entorno.Entorno;
 
 public class DisparoSprite {
 	double x,y;
-	int contador =0,mostrador=0;
+	int aux =0,mostrador=0;
 	Image [] imagenesD;
 	Image [] imagenesI;
 	String [] disparo= {"poder0001.png","poder0002.png","poder0003.png","poder0004.png","poder0005.png"};
 	String [] disparoD= {"poderD0001.png","poderD0002.png","poderD0003.png","poderD0004.png","poderD0005.png"};
 	boolean animar;
+
 	
 	public DisparoSprite(double x,double y) {
 		//imagen = new ImageIcon("0001.png").getImage();
@@ -35,6 +36,52 @@ public class DisparoSprite {
 		}
 
 
+	}
+	
+	public void animacionDerecha(Entorno e,double x, double y) {
+		if(animar==true) {
+			this.aux++;
+			e.dibujarImagen(imagenesD[this.mostrador], x+60, y+20, 0.0);
+			if (aux==6) {
+				aux=0;
+				this.mostrador++;
+			}
+			if(mostrador>imagenesD.length-1) {
+				setAnimar(false);
+				aux=0;
+				this.mostrador=0;
+				
+			}
+		}
+
+
+		
+	}
+	public void animacionIzquierda(Entorno e,double x, double y) {
+		if(animar) {
+			this.aux++;
+			e.dibujarImagen(imagenesI[this.mostrador], x-60, y+20, 0.0);
+			
+			if (aux==6) {
+				aux=0;
+				this.mostrador++;
+			}
+			if(mostrador>imagenesI.length-1) {
+				setAnimar(false);
+				aux=0;
+				this.mostrador=0;
+			}
+		}
+
+
+	}
+
+	public boolean isAnimar() {
+		return animar;
+	}
+
+	public void setAnimar(boolean animar) {
+		this.animar = animar;
 	}
 	
 

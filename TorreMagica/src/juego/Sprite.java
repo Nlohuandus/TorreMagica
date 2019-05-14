@@ -9,6 +9,8 @@ import entorno.Entorno;
 
 public class Sprite{
 	Image [] imagenesD,imagenesI,imagenesIde;
+	Image golpeDe = new ImageIcon("golpeIz.png").getImage();
+	Image golpeIz = new ImageIcon("golpeDe.png").getImage();
 	String [] derecha = {"derecha0001.png","derecha0002.png","derecha0003.png","derecha0004.png","derecha0005.png","derecha0006.png","derecha0007.png"};
 	String [] izquierda = {"izquierda0001.png","izquierda0002.png","izquierda0003.png","izquierda0004.png","izquierda0005.png","izquierda0006.png","izquierda0007.png"};
 	String [] ide = {"ide0001.png","ide0002.png","ide0003.png","ide0004.png","ide0005.png"};

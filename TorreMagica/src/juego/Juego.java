@@ -17,7 +17,8 @@ public class Juego extends InterfaceJuego
 	int ancho=600, alto=900,cantEnemigos=7;
 	Mago[] personajes= new Mago[cantEnemigos];
 	Mago mago;
-	Sprite sprite; 
+	Sprite sprite;
+	public DisparoSprite dS;
 	Viga[] vigas=new Viga[11];
 	boolean mantener=false;
 	boolean[] contra= new boolean [cantEnemigos];
@@ -48,6 +49,8 @@ public class Juego extends InterfaceJuego
 		}
 		
 		this.sprite=new Sprite(mago.getPosX(),mago.getPosY());
+		this.dS=new DisparoSprite(mago.getPosX(),mago.getPosY());
+		
 		
 		
 		// Inicia el juego!
@@ -69,10 +72,17 @@ public class Juego extends InterfaceJuego
 		for (Disparo d : mago.lDisparo) {//nueva version
 			d.Dibujar(this.entorno);//nueva version
 		}
+		
 		dibujarVigas();
 		//mago.Dibujar(entorno);
 		
 		dibujarPersonajes();
+		
+		if(mago.derecha) {
+			dS.animacionDerecha(entorno,mago.getPosX(),mago.getPosY());
+		}else {
+			dS.animacionIzquierda(entorno,mago.getPosX(),mago.getPosY());
+		}
 		entorno.dibujarRectangulo(ancho/2, alto-110, ancho+30, (alto-margen)+20,0.0, Color.gray);
 		tiempo.dibujar(entorno,"Tiempo :");
 		dibujarCorazones((ancho/2)-250, alto-150);
@@ -83,8 +93,8 @@ public class Juego extends InterfaceJuego
 			comportamientoEnemigo(ancho);
 			mago.contacto(personajes);
 			if(mago.vulnerable==false){
-				System.out.println("entra");
 				cont++;
+				
 				if(cont>150){
 					mago.vulnerable=true;
 					cont=0;
@@ -97,13 +107,17 @@ public class Juego extends InterfaceJuego
 				contador++;
 				if (contador<vueltasSalto-5) {
 					mago.saltar();
+					dS.setAnimar(false);
 					
 				}else if(contador==vueltasSalto) {
 					mago.setSaltar(false);
+					dS.setAnimar(false);
 					contador=0;
 				}
 
 			}
+			
+			
 		}else {
 			if(ganar()) {
 				Carteles.cartel(entorno,(ancho/2)-100, alto-600,"Ganaste");
@@ -166,6 +180,7 @@ public class Juego extends InterfaceJuego
 		}
 		if(entorno.sePresiono(entorno.TECLA_ARRIBA)) {
 			mago.setSaltar(true);
+			dS.setAnimar(false);
 		}
 		comprobar();
 	}
@@ -193,7 +208,19 @@ public class Juego extends InterfaceJuego
 		for(int i=0;i<personajes.length;i++) {
 			if(i==0) {
 				if(personajes[i].isEstado()==true) {
-					sprite.dibujar(entorno,mago.getPosX(),mago.getPosY(),mago.derecha,mago.mover);
+					if(mago.vulnerable==false && cont<25) {
+						if(mago.dgolpe) {
+							mago.retroceder();
+							entorno.dibujarImagen(sprite.golpeIz, mago.getPosX(), mago.getPosY(), 0.0);
+						}else {
+							mago.avanzar();
+							entorno.dibujarImagen(sprite.golpeDe, mago.getPosX(), mago.getPosY(), 0.0);	
+						}
+						
+					}else {
+						sprite.dibujar(entorno,mago.getPosX(),mago.getPosY(),mago.derecha,mago.mover);
+					}
+					
 					//personajes[i].Dibujar(entorno);
 				}else {
 					personajes[i].Dibujar(entorno,Color.green);
@@ -352,12 +379,19 @@ public class Juego extends InterfaceJuego
 			Fisica.margen(margen, personajes[i]);
 			
 			if (Fisica.colision(personajes[0], vigas)) {
-				mago.aux=0;   //agregar en nueva version
+				mago.aux=0; 
+				incremento++;//agregar en nueva version
+				
+				if(incremento>550) {
+					dS.setAnimar(false);
+				}
 			}
 			if(!Fisica.colision(personajes[i], vigas)) {
 				personajes[i].caer();
-				
-
+				if(i==0 && mago.isSaltar()==false) {
+					dS.setAnimar(true);
+					incremento=0;
+				}
 			}
 		}
 		
