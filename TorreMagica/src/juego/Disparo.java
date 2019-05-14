@@ -22,9 +22,10 @@ public class Disparo {
 		this.xdir = (double) Math.cos(this.angulo);
 		this.ydir = (double) Math.sin(this.angulo);
 		this.b=b;//nueva version
+		
 	}
-	public void Dibujar(Entorno e,boolean d) {
 
+	void Dibujar(Entorno e) {
 		e.dibujarRectangulo(this.x, this.y, 5, 5, this.angulo, Color.cyan);
 		if(!b) {
 			e.dibujarImagen(disparoIz, x, y, angulo);
@@ -32,6 +33,11 @@ public class Disparo {
 			e.dibujarImagen(disparoDer, x, y, angulo);
 		}
 		
+		//if(b) {
+			//sprite.dibujar(e,x+100,y,b,6);
+		//}else {
+			//sprite.dibujar(e,x,y,b,5);
+		//}
 		
 		trayectoria(this.b);//nueva version
 	}

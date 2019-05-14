@@ -15,9 +15,9 @@ public class Mago {
 	private boolean estado,saltar;
 	ArrayList<Disparo> lDisparo= new ArrayList<Disparo>();//nueva version
 	public Disparo d;
-
-	boolean derecha,muerte,contacto=false,mover;//nuevo 
-	int aux,velocidad;
+	boolean derecha,muerte,contacto=false,mover,vulnerable=true;//nuevo 
+	int aux,velocidad,cantCorazones=3;
+	boolean[]corazones={true,true,true};
 	Mago(double x, double y, double ancho,double alto,double angulo){
 		this.x=x;
 		this.y=y;
@@ -40,11 +40,11 @@ public class Mago {
 	}
 
 	void Dibujar(Entorno e) {
-		e.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, this.angulo, Color.BLACK);
+		e.dibujarRectangulo(this.x, this.y+13, this.ancho, this.alto, this.angulo, Color.orange);
 
 	}
 	void Dibujar(Entorno e,Color color) {
-		e.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, this.angulo, color);
+		e.dibujarRectangulo(this.x, this.y+13, this.ancho, this.alto, this.angulo, color);
 	}
 	void avanzar() {
 		this.y = y + (float) Math.sin(angulo);
@@ -103,19 +103,48 @@ public class Mago {
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
-	
 
 	public void contacto(Mago[]personajes) {//si el mago es tocado por un enemigo
 		
 		for(int i=1;i<personajes.length;i++) {
-			if(personajes[i].estado==true) {//revisa si el enemigo esta congelado
-				if(personajes[i].getPosY()<=getPosY() && personajes[i].getPosY()>=getPosY()-ancho) {
-					if(personajes[i].getPosX()<=getPosX() && personajes[i].getPosX()>=getPosX()-ancho) {
-						setEstado(false);
-					}else if(personajes[i].getPosX()>=getPosX() && personajes[i].getPosX()<=getPosX()+ancho) {
-						setEstado(false);
-					}
+			if(personajes[i].estado==true) {
+					//revisa si el enemigo esta congelado
+					if(personajes[i].getPosY()<=getPosY() && personajes[i].getPosY()>=getPosY()-ancho) {
+						if(personajes[i].getPosX()<=getPosX() && personajes[i].getPosX()>=getPosX()-ancho) {
+							System.out.println("entra");
+							if(vulnerable==true){
+								this.cantCorazones--;
+								if(cantCorazones>=0){
+									corazones[cantCorazones]=false;
+									
+								}
+							}
+
+							this.vulnerable=false;
+
+							if(cantCorazones==0){
+								setEstado(false);
+							}
+							
+						}else if(personajes[i].getPosX()>=getPosX() && personajes[i].getPosX()<=getPosX()+ancho) {
+							System.out.println("entra");
+							if(vulnerable==true){
+								this.cantCorazones--;
+								if(cantCorazones>=0){
+									corazones[cantCorazones]=false;
+									
+								}
+							}
+
+							this.vulnerable=false;
+
+							if(cantCorazones==0){
+								setEstado(false);
+							}
+							
+						}
 				}
+				
 			}else {//nuevo
 				if(personajes[i].getPosY()<=getPosY() && personajes[i].getPosY()>=getPosY()-ancho) {
 					if(personajes[i].getPosX()<=getPosX() && personajes[i].getPosX()>=getPosX()-ancho) {

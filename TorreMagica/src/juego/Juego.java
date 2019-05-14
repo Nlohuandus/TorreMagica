@@ -2,7 +2,10 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.ImageObserver;
+
+import javax.swing.ImageIcon;
 
 import entorno.Entorno;
 import entorno.InterfaceJuego;
@@ -13,15 +16,16 @@ public class Juego extends InterfaceJuego
 	private Entorno entorno;
 	int ancho=600, alto=900,cantEnemigos=7;
 	Mago[] personajes= new Mago[cantEnemigos];
-	Mago mago;//new Mago(100.0, 80.0, 50.0,50.0, 0);
-	//=new Mago(200.0, 0.0, 50.0,50.0, 0);
+	Mago mago;
 	Sprite sprite; 
-	//Viga viga= new Viga(150,200);
-	//Viga viga2= new Viga(250,300);
 	Viga[] vigas=new Viga[11];
 	boolean mantener=false;
 	boolean[] contra= new boolean [cantEnemigos];
-	int contador=0,vueltasSalto=23,margen,incremento=0,tiempoParado=0;
+	Image[]corazones1=new Image[3];
+	Image corazonRoto =new ImageIcon("corazon2.png").getImage();
+	int contador=0,vueltasSalto=23,margen,incremento=0,cont=0;
+	
+	cajasDeTexto tiempo;
 	
 
 	
@@ -38,6 +42,11 @@ public class Juego extends InterfaceJuego
 		posPersonajes();
 		this.mago=personajes[0];
 		estados();
+		this.tiempo=new cajasDeTexto((ancho/2)-250, alto-210, ancho+30, (alto-margen)+20, 30);
+		for(int i =0; i<corazones1.length;i++){
+			corazones1[i]=new ImageIcon("corazon.png").getImage();
+		}
+		
 		this.sprite=new Sprite(mago.getPosX(),mago.getPosY());
 		
 		
@@ -58,19 +67,30 @@ public class Juego extends InterfaceJuego
 		// ...
 		//Carteles.cartel(entorno,(ancho/2)-100, alto-600,"probamos");
 		for (Disparo d : mago.lDisparo) {//nueva version
-			d.Dibujar(this.entorno, mago.derecha);//nueva version
+			d.Dibujar(this.entorno);//nueva version
 		}
 		dibujarVigas();
-		mago.Dibujar(entorno);
+		//mago.Dibujar(entorno);
 		
 		dibujarPersonajes();
 		entorno.dibujarRectangulo(ancho/2, alto-110, ancho+30, (alto-margen)+20,0.0, Color.gray);
+		tiempo.dibujar(entorno,"Tiempo :");
+		dibujarCorazones((ancho/2)-250, alto-150);
 		
 		if(mago.isEstado() && !ganar()) {
 			fisicas();
 			mover();
 			comportamientoEnemigo(ancho);
 			mago.contacto(personajes);
+			if(mago.vulnerable==false){
+				System.out.println("entra");
+				cont++;
+				if(cont>150){
+					mago.vulnerable=true;
+					cont=0;
+				}
+			}
+			
 			
 
 			if(mago.isSaltar()) {
@@ -95,7 +115,7 @@ public class Juego extends InterfaceJuego
 		
 
 		//System.out.println("pos x: "+mago.getPosX());
-		System.out.println("pos y: "+personajes[1].getPosY());
+		//System.out.println("pos y: "+personajes[1].getPosY());
 		//System.out.println("pos y viga: "+viga2.posy);
 		//System.out.println("pos x viga bordIz: "+viga2.bordeIz);
 		//System.out.println("pos x viga bordDer: "+viga2.bordeDer);
@@ -128,7 +148,6 @@ public class Juego extends InterfaceJuego
 					}
 				}
 			}
-			this.tiempoParado=0;
 		}
 		if(entorno.estaPresionada(entorno.TECLA_DERECHA)) {
 			if(mago.getPosX()<ancho-30) {//bordes!!! agregar
@@ -143,11 +162,10 @@ public class Juego extends InterfaceJuego
 					
 				}
 			}
-			this.tiempoParado=0;
+
 		}
 		if(entorno.sePresiono(entorno.TECLA_ARRIBA)) {
 			mago.setSaltar(true);
-			this.tiempoParado=0;
 		}
 		comprobar();
 	}
@@ -359,6 +377,20 @@ public class Juego extends InterfaceJuego
 		}
 	
 		return true;
+	}
+	
+	void dibujarCorazones(double x, double y){
+		double x1=x;
+		for(int i=0;i<corazones1.length;i++){
+			if(mago.corazones[i]){
+				entorno.dibujarImagen(corazones1[i], x1, y, 0.0);
+			}else{
+				entorno.dibujarImagen(corazonRoto, x1, y, 0.0);
+			}
+			
+			x1+=70;
+		}
+		
 	}
 	
 

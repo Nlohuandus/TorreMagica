@@ -37,55 +37,5 @@ public class DisparoSprite {
 
 	}
 	
-	public void dibujar(Entorno e,double x,double y,boolean derecha) {
-		if(animar) {
-			if(derecha) {
 
-				e.dibujarImagen(imagenesD[mostrador] , x, y, 0.0);
-				
-			}else {
-				e.dibujarImagen(imagenesI[mostrador] , x, y, 0.0);
-			}
-			
-			this.contador++;
-			if (contador>6) {
-				this.mostrador++;
-				if(derecha) {
-					if(mostrador>imagenesD.length-1) {
-						this.mostrador=0;
-					}
-				}else {
-					if(mostrador>imagenesI.length-1) {
-						this.mostrador=0;
-					}
-				}
-
-			}
-		}
-		
-	}
-	public void dibujar(Entorno e,boolean derecha) {
-		if(animar) {
-			if(derecha) {
-				e.dibujarImagen(imagenesD[mostrador] , x+80, y, 0.0);
-			}else {
-				e.dibujarImagen(imagenesD[mostrador] , x-80, y, 0.0);
-			}
-			
-			this.contador++;
-			if (contador>12) {
-				this.mostrador++;
-				if(mostrador>imagenesD.length-3) {
-					this.mostrador=imagenesD.length-1;
-				}
-			}
-		}
-		
-	}
-	public void dibujar(Entorno e,double x,double y,boolean derecha,int i) {
-
-		e.dibujarImagen(imagenesI[i] , x-50, y, 0.0);
-
-
-	}
 }
