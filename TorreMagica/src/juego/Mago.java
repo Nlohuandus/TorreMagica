@@ -64,9 +64,8 @@ public class Mago {
 		if (aux>11 && aux<13) {
 			if(saltar==false) {
 				lDisparo.add(disparar());
+				//Sonidos.disparo();
 			}
-			
-			//aux=0;                        //  agregar nueva version
 			}
 	}
 	void saltar() {

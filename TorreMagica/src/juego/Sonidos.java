@@ -24,4 +24,9 @@ public class Sonidos {
 		File gameover = new File ("GameOver.wav");
 		reproducir(gameover);
 	}
+	static void disparo() {
+		File gameover = new File ("Disparo.wav");
+		reproducir(gameover);
+	}
+	
 }
