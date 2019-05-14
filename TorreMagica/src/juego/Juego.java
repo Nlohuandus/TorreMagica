@@ -1,10 +1,8 @@
 ﻿package juego;
 
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.image.ImageObserver;
+
 
 import javax.swing.ImageIcon;
 
@@ -23,7 +21,7 @@ public class Juego extends InterfaceJuego
 	Viga[] vigas=new Viga[11];
 	boolean mantener=false;
 	boolean[] contra= new boolean [cantEnemigos];
-	Image[]corazones1=new Image[3];
+	Image corazon =new ImageIcon("corazon.png").getImage();
 	Image corazonRoto =new ImageIcon("corazon2.png").getImage();
 	int contador=0,vueltasSalto=23,margen,incremento=0,cont=0;
 	Sonidos s=new Sonidos();
@@ -45,9 +43,6 @@ public class Juego extends InterfaceJuego
 		this.mago=personajes[0];
 		estados();
 		this.tiempo=new cajasDeTexto((ancho/2)-250, alto-210, ancho+30, (alto-margen)+20, 30);
-		for(int i =0; i<corazones1.length;i++){
-			corazones1[i]=new ImageIcon("corazon.png").getImage();
-		}
 		
 		this.sprite=new Sprite(mago.getPosX(),mago.getPosY());
 		this.dS=new DisparoSprite(mago.getPosX(),mago.getPosY());
@@ -82,7 +77,7 @@ public class Juego extends InterfaceJuego
 		
 		if(mago.derecha) {
 			dS.animacionDerecha(entorno,mago.getPosX(),mago.getPosY());
-		}else {
+		}else{
 			dS.animacionIzquierda(entorno,mago.getPosX(),mago.getPosY());
 		}
 		entorno.dibujarRectangulo(ancho/2, alto-110, ancho+30, (alto-margen)+20,0.0, Color.gray);
@@ -108,7 +103,7 @@ public class Juego extends InterfaceJuego
 				contador++;
 				if (contador<vueltasSalto-5) {
 					mago.saltar();
-					dS.setAnimar(false);
+					dS.setearTodo();
 					
 				}else if(contador==vueltasSalto) {
 					mago.setSaltar(false);
@@ -180,7 +175,7 @@ public class Juego extends InterfaceJuego
 		}
 		if(entorno.sePresiono(entorno.TECLA_ARRIBA)) {
 			mago.setSaltar(true);
-			dS.setAnimar(false);
+			dS.setearTodo();
 		}
 		comprobar();
 	}
@@ -382,8 +377,8 @@ public class Juego extends InterfaceJuego
 				mago.aux=0; 
 				incremento++;//agregar en nueva version
 				
-				if(incremento>550) {
-					dS.setAnimar(false);
+				if(incremento>150) {
+					dS.setearTodo();
 				}
 			}
 			if(!Fisica.colision(personajes[i], vigas)) {
@@ -415,9 +410,9 @@ public class Juego extends InterfaceJuego
 	
 	void dibujarCorazones(double x, double y){
 		double x1=x;
-		for(int i=0;i<corazones1.length;i++){
+		for(int i=0;i<mago.corazones.length;i++){
 			if(mago.corazones[i]){
-				entorno.dibujarImagen(corazones1[i], x1, y, 0.0);
+				entorno.dibujarImagen(corazon, x1, y, 0.0);
 			}else{
 				entorno.dibujarImagen(corazonRoto, x1, y, 0.0);
 			}
