@@ -7,7 +7,6 @@ public class Fisica {
 				if(mago.getPosX()>vigas[i].bordeIz && mago.getPosX()<vigas[i].bordeDer) {
 					return true;
 				}
-				
 			}
 		}
 
