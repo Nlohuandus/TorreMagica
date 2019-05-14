@@ -154,6 +154,7 @@ public class Juego extends InterfaceJuego
 		if(entorno.sePresiono(entorno.TECLA_ARRIBA)) {
 			mago.setSaltar(true);
 			this.tiempoParado=0;
+			Sonidos.salto();
 		}
 		comprobar();
 	}

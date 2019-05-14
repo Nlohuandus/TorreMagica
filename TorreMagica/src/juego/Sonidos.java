@@ -7,7 +7,7 @@ import javax.sound.sampled.Clip;
 public class Sonidos {
 
 	public static void main (String [] args) {
-		caminar();
+		salto();
 	}
 	static void reproducir(File sonido) {
 		try {
