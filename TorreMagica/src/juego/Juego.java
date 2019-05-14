@@ -94,7 +94,6 @@ public class Juego extends InterfaceJuego
 			mago.contacto(personajes);
 			if(mago.vulnerable==false){
 				cont++;
-				
 				if(cont>150){
 					mago.vulnerable=true;
 					cont=0;
@@ -111,7 +110,6 @@ public class Juego extends InterfaceJuego
 					
 				}else if(contador==vueltasSalto) {
 					mago.setSaltar(false);
-					dS.setAnimar(false);
 					contador=0;
 				}
 
