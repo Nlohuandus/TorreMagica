@@ -123,6 +123,11 @@ public class Juego extends InterfaceJuego
 				Carteles.cartel(entorno,(ancho/2)-100, alto-600,"Ganaste");
 			}else {
 				Carteles.cartel(entorno,(ancho/2)-100, alto-600,"PERDEDOR");
+				Carteles.cartel(entorno,(ancho/2)-100, alto-500,"Para reintentar");
+				Carteles.cartel(entorno,(ancho/2)-100, alto-400,"Presione enter");
+				if (entorno.sePresiono(entorno.TECLA_ENTER)) {
+					new Juego();
+				}
 			}
 			
 		}
