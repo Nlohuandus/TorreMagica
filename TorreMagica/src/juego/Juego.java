@@ -22,7 +22,7 @@ public class Juego extends InterfaceJuego
 	Image corazon =new ImageIcon("corazon.png").getImage();
 	Image corazonRoto =new ImageIcon("corazon2.png").getImage();
 	int contador=0,vueltasSalto=23,margen,incremento=0,cont=0;
-	Sonidos s=new Sonidos();
+	//Sonidos s=new Sonidos();
 	cajasDeTexto tiempo;
 	
 
@@ -115,6 +115,7 @@ public class Juego extends InterfaceJuego
 			if(ganar()) {
 				Carteles.cartel(entorno,(ancho/2)-100, alto-600,"Ganaste");
 			}else {
+				sprite.animar(entorno,mago.getPosX(),mago.getPosY());
 				Carteles.cartel(entorno,(ancho/2)-100, alto-600,"PERDEDOR");
 				Carteles.cartel(entorno,(ancho/2)-100, alto-500,"Para reintentar");
 				Carteles.cartel(entorno,(ancho/2)-100, alto-400,"Presione enter");
@@ -220,8 +221,6 @@ public class Juego extends InterfaceJuego
 					}
 					
 					//personajes[i].Dibujar(entorno);
-				}else {
-					personajes[i].Dibujar(entorno,Color.green);
 				}
 				
 			}else {
