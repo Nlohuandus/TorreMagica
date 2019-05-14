@@ -1,8 +1,8 @@
 ﻿package juego;
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.image.ImageObserver;
+//import java.awt.Graphics;
+//import java.awt.Graphics2D;
+//import java.awt.image.ImageObserver;
 
 import entorno.Entorno;
 import entorno.InterfaceJuego;
@@ -22,7 +22,7 @@ public class Juego extends InterfaceJuego
 	boolean mantener=false;
 	boolean[] contra= new boolean [cantEnemigos];
 	int contador=0,vueltasSalto=23,margen,incremento=0,tiempoParado=0;
-	
+	Sonidos s=new Sonidos();
 
 	
 	// Variables y métodos propios de cada grupo
@@ -88,14 +88,15 @@ public class Juego extends InterfaceJuego
 			if(ganar()) {
 				Carteles.cartel(entorno,(ancho/2)-100, alto-600,"Ganaste");
 			}else {
+				
 				Carteles.cartel(entorno,(ancho/2)-100, alto-600,"PERDEDOR ");
 				Carteles.cartel(entorno,(ancho/2)-200, alto-700,"Para reintentar ");
 				Carteles.cartel(entorno,(ancho/2)-300, alto-800,"presione CTRL ");
+				//Sonidos.gameOver();
 				if (entorno.sePresiono(entorno.TECLA_CTRL)) {
 					new Juego();
 				}
 			}
-			
 		}
 		
 
