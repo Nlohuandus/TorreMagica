@@ -2,6 +2,7 @@
 
 import java.awt.Color;
 import java.awt.Image;
+
 import javax.swing.ImageIcon;
 
 import entorno.Entorno;
@@ -24,6 +25,7 @@ public class Juego extends InterfaceJuego
 	int contador=0,vueltasSalto=23,margen,incremento=0,cont=0;
 	//Sonidos s=new Sonidos();
 	cajasDeTexto tiempo;
+	Sonidos s;
 	
 
 	
@@ -181,6 +183,7 @@ public class Juego extends InterfaceJuego
 		if(entorno.sePresiono(entorno.TECLA_ARRIBA)) {
 			mago.setSaltar(true);
 			salto=true;
+			//s=new Sonidos("saltar");
 		}
 		comprobar();
 	}
