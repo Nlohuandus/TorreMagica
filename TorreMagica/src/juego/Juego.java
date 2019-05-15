@@ -78,6 +78,7 @@ public class Juego extends InterfaceJuego
 		}else{
 			dS.animacionIzquierda(entorno,mago.getPosX(),mago.getPosY());
 		}
+
 		entorno.dibujarRectangulo(ancho/2, alto-110, ancho+30, (alto-margen)+20,0.0, Color.gray);
 		tiempo.dibujar(entorno,"Tiempo :");
 		dibujarCorazones((ancho/2)-250, alto-150);
@@ -217,7 +218,18 @@ public class Juego extends InterfaceJuego
 						}
 						
 					}else {
-						sprite.dibujar(entorno,mago.getPosX(),mago.getPosY(),mago.derecha,mago.mover);
+						if(mago.isSaltar()) {
+							if(mago.mover) {
+								entorno.dibujarImagen(sprite.saltoFin2, mago.getPosX(),mago.getPosY(), 0.0);
+							}else {
+								entorno.dibujarImagen(sprite.saltoFin, mago.getPosX(),mago.getPosY(), 0.0);
+							}
+							
+						}
+						else {
+							sprite.dibujar(entorno,mago.getPosX(),mago.getPosY(),mago.derecha,mago.mover);
+						}
+						
 					}
 					
 					//personajes[i].Dibujar(entorno);

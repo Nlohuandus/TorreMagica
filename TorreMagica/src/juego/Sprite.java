@@ -8,16 +8,20 @@ import javax.swing.ImageIcon;
 import entorno.Entorno;
 
 public class Sprite{
-	Image [] imagenesD,imagenesI,imagenesIde,imagenesMuerte;
+	Image [] imagenesD,imagenesI,imagenesIde,imagenesMuerte,imagenesSalto;
 	Image golpeDe = new ImageIcon("golpeIz.png").getImage();
 	Image golpeIz = new ImageIcon("golpeDe.png").getImage();
+	Image saltoFin = new ImageIcon("salto0002.png").getImage();
+	Image saltoFin2 = new ImageIcon("salto0003.png").getImage();
+	
 	String [] derecha = {"derecha0001.png","derecha0002.png","derecha0003.png","derecha0004.png","derecha0005.png","derecha0006.png","derecha0007.png"};
 	String [] izquierda = {"izquierda0001.png","izquierda0002.png","izquierda0003.png","izquierda0004.png","izquierda0005.png","izquierda0006.png","izquierda0007.png"};
 	String [] ide = {"ide0001.png","ide0002.png","ide0003.png","ide0004.png","ide0005.png"};
 	String[] muerte = {"muerte0001.png","muerte0002.png","muerte0003.png","muerte0004.png"};
+	String[] salto = {"salto0001.png","salto0002.png"};
 	boolean entra=false;
 	double x,y;
-	int contador =0,mostrador=0;
+	public int contador =0,mostrador=0;
 
 	public Sprite(double x,double y) {
 		//imagen = new ImageIcon("0001.png").getImage();
@@ -77,11 +81,36 @@ public class Sprite{
 		}
 	}
 	
+	void animarSalto(Entorno e,double x,double y) {
+		System.out.println(mostrador);
+		if(entra==false) {
+			this.entra=true;
+			mostrador=0;
+		}
+		if (mostrador>salto.length-1) {
+			mostrador=0;
+		}
+		if (mostrador>salto.length-1 && entra) {
+			entra=false;
+			mostrador=0;
+		}
+		if(mostrador<salto.length-1) {
+			e.dibujarImagen(imagenesSalto[mostrador] , x, y+15, 0.0);	
+		}
+		
+		this.contador++;
+		if (contador>12) {
+			this.mostrador++;
+			this.contador=0;
+		}
+	}
+	
 	void setImagenes() {
 		this.imagenesD =new Image [derecha.length];
 		this.imagenesI =new Image [izquierda.length];
 		this.imagenesIde=new Image [ide.length];
 		this.imagenesMuerte=new Image [muerte.length];
+		this.imagenesSalto=new Image [salto.length];
 		
 		for(int i =0; i<izquierda.length;i++) {
 			imagenesI[i]=new ImageIcon(izquierda[i]).getImage();
@@ -97,6 +126,10 @@ public class Sprite{
 		}
 		for(int i =0; i<muerte.length;i++) {
 			imagenesMuerte[i]=new ImageIcon(muerte[i]).getImage();
+			
+		}
+		for(int i =0; i<salto.length;i++) {
+			imagenesSalto[i]=new ImageIcon(salto[i]).getImage();
 			
 		}
 	}
