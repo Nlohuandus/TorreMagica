@@ -72,7 +72,6 @@ public class Mago {
 			}
 	}
 	void saltar() {
-		//Sonidos.salto();
 		this.y = y - peso*2;
 	}
 	public boolean isSaltar() {
