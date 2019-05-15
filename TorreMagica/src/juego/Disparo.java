@@ -26,7 +26,7 @@ public class Disparo {
 	}
 
 	void Dibujar(Entorno e) {
-		e.dibujarRectangulo(this.x, this.y, 5, 5, this.angulo, Color.cyan);
+		e.dibujarRectangulo(this.x, this.y+10, 5, 5, this.angulo, Color.cyan);
 		if(!b) {
 			e.dibujarImagen(disparoIz, x, y+20, angulo);
 		}else {
