@@ -12,7 +12,7 @@ public class Juego extends InterfaceJuego
 {
 	// El objeto Entorno que controla el tiempo y otros
 	private Entorno entorno;
-	int ancho=600, alto=900,cantEnemigos=7;
+	int ancho=600, alto=900,cantEnemigos=30;
 	Mago[] personajes= new Mago[cantEnemigos];
 	Mago mago;
 	Sprite sprite;
@@ -22,11 +22,9 @@ public class Juego extends InterfaceJuego
 	boolean[] contra= new boolean [cantEnemigos];
 	Image corazon =new ImageIcon("corazon.png").getImage();
 	Image corazonRoto =new ImageIcon("corazon2.png").getImage();
-	int contador=0,vueltasSalto=23,margen,incremento=0,cont=0;
-	//Sonidos s=new Sonidos();
+	int contador=0,vueltasSalto=23,margen,incremento=0,cont=0,puntaje=0;
 	cajasDeTexto tiempo;
-	Sonidos s;
-	
+	double milisegundo=0;
 
 	
 	// Variables y métodos propios de cada grupo
@@ -66,6 +64,7 @@ public class Juego extends InterfaceJuego
 		// Procesamiento de un instante de tiempo
 		// ...
 		//Carteles.cartel(entorno,(ancho/2)-100, alto-600,"probamos");
+		milisegundo +=1;
 		for (Disparo d : mago.lDisparo) {//nueva version
 			d.Dibujar(this.entorno);//nueva version
 		}
@@ -82,7 +81,7 @@ public class Juego extends InterfaceJuego
 		}
 
 		entorno.dibujarRectangulo(ancho/2, alto-110, ancho+30, (alto-margen)+20,0.0, Color.gray);
-		tiempo.dibujar(entorno,"Tiempo :");
+		tiempo.dibujar(entorno,"Tiempo :" + ((int) milisegundo /60));
 		dibujarCorazones((ancho/2)-250, alto-150);
 		
 		if(mago.isEstado() && !ganar()) {
@@ -183,7 +182,7 @@ public class Juego extends InterfaceJuego
 		if(entorno.sePresiono(entorno.TECLA_ARRIBA)) {
 			mago.setSaltar(true);
 			salto=true;
-			s=new Sonidos("saltar");
+			//=new Sonidos("saltar");
 		}
 		comprobar();
 	}
@@ -204,6 +203,15 @@ public class Juego extends InterfaceJuego
 				y=480;
 			}
 			personajes[i]=new Mago(x, y, 50.0,50.0, 0);
+		}
+	}
+	
+	void puntaje() {
+		int puntaje=0;
+		for(int i =1; i<personajes.length;i++) {
+			if(personajes[i].muerte==true) {
+				
+			}
 		}
 	}
 	

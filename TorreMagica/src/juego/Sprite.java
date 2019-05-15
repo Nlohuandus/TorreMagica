@@ -11,8 +11,8 @@ public class Sprite{
 	Image [] imagenesD,imagenesI,imagenesIde,imagenesMuerte,imagenesSalto;
 	Image golpeDe = new ImageIcon("golpeIz.png").getImage();
 	Image golpeIz = new ImageIcon("golpeDe.png").getImage();
-	Image saltoFin = new ImageIcon("salto0002.png").getImage();
-	Image saltoFin2 = new ImageIcon("salto0003.png").getImage();
+	Image saltoFin = new ImageIcon("salto0004.png").getImage();
+	Image saltoFin2 = new ImageIcon("salto0004.png").getImage();
 	
 	String [] derecha = {"derecha0001.png","derecha0002.png","derecha0003.png","derecha0004.png","derecha0005.png","derecha0006.png","derecha0007.png"};
 	String [] izquierda = {"izquierda0001.png","izquierda0002.png","izquierda0003.png","izquierda0004.png","izquierda0005.png","izquierda0006.png","izquierda0007.png"};
