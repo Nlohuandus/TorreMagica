@@ -183,7 +183,7 @@ public class Juego extends InterfaceJuego
 		if(entorno.sePresiono(entorno.TECLA_ARRIBA)) {
 			mago.setSaltar(true);
 			salto=true;
-			//s=new Sonidos("saltar");
+			s=new Sonidos("saltar");
 		}
 		comprobar();
 	}

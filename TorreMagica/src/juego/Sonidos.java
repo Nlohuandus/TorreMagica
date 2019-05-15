@@ -43,10 +43,10 @@ Sonidos(String s){
 		
 	}
 }
-	public static void main (String [] args) {
-		Sonidos s=new Sonidos("saltar");
+	//public static void main (String [] args) {
+		//Sonidos s=new Sonidos("saltar");
 		
-	}
+	//}
 	/*static void reproducir(File sonido) {
 		try {
 			Clip clip=AudioSystem.getClip();
