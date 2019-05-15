@@ -2,6 +2,8 @@
 
 import java.awt.Color;
 import java.awt.Image;
+
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 
 import entorno.Entorno;
@@ -22,8 +24,8 @@ public class Juego extends InterfaceJuego
 	Image[]corazones1=new Image[3];
 	Image corazonRoto =new ImageIcon("corazon2.png").getImage();
 	int contador=0,vueltasSalto=23,margen,incremento=0,cont=0;
-	Sonidos s=new Sonidos();
 	cajasDeTexto tiempo;
+	//Sonidos s=new Sonidos();
 	
 
 	

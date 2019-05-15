@@ -2,14 +2,50 @@ package juego;
 
 import java.io.File;
 
+import javax.print.DocFlavor.STRING;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 public class Sonidos {
-
-	public static void main (String [] args) {
-		salto();
+	File saltar = new File ("Salto.wav");
+	File caminar = new File ("Caminar.wav");
+	File disparo = new File ("Disparo.wav");
+	File gameover = new File ("GameOver.wav");
+Sonidos(String s){
+	try {
+		if(s.equals("saltar")){
+		Clip clip=AudioSystem.getClip();
+		clip.open(AudioSystem.getAudioInputStream(this.saltar));
+		clip.start();
+		Thread.sleep(clip.getMicrosecondLength()/1000);
+		clip.stop();
+	}else if(s.equals("caminar")){
+		Clip clip=AudioSystem.getClip();
+		clip.open(AudioSystem.getAudioInputStream(this.caminar));
+		clip.start();
+		Thread.sleep(clip.getMicrosecondLength()/1000);
+		clip.stop();
+	}else if(s.equals("disparo")){
+		Clip clip=AudioSystem.getClip();
+		clip.open(AudioSystem.getAudioInputStream(this.disparo));
+		clip.start();
+		Thread.sleep(clip.getMicrosecondLength()/1000);
+		clip.stop();
+	} else{
+		Clip clip=AudioSystem.getClip();
+		clip.open(AudioSystem.getAudioInputStream(this.gameover));
+		clip.start();
+		Thread.sleep(clip.getMicrosecondLength()/1000);
+		clip.stop();
 	}
-	static void reproducir(File sonido) {
+		
+	}catch (Exception e) {
+		
+	}
+}
+	public static void main (String [] args) {
+		Sonidos s=new Sonidos("saltar");
+	}
+	/*static void reproducir(File sonido) {
 		try {
 			Clip clip=AudioSystem.getClip();
 			clip.open(AudioSystem.getAudioInputStream(sonido));
@@ -19,22 +55,6 @@ public class Sonidos {
 		}catch (Exception e) {
 			
 		}
-	}
-	static void gameOver() {
-		File gameover = new File ("GameOver.wav");
-		reproducir(gameover);
-	}
-	static void disparo() {
-		File disparo = new File ("Disparo.wav");
-		reproducir(disparo);
-	}
-	static void caminar() {
-		File caminar = new File ("Caminar.wav");
-		reproducir(caminar);
-	}
-	static void salto() {
-		File saltar = new File ("Salto.wav");
-		reproducir(saltar);
-	}
+	}*/
 	
 }
