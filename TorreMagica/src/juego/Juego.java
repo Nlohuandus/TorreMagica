@@ -17,7 +17,7 @@ public class Juego extends InterfaceJuego
 	Sprite sprite;
 	public DisparoSprite dS;
 	Viga[] vigas=new Viga[11];
-	boolean mantener=false;
+	boolean mantener=false,salto=false;
 	boolean[] contra= new boolean [cantEnemigos];
 	Image corazon =new ImageIcon("corazon.png").getImage();
 	Image corazonRoto =new ImageIcon("corazon2.png").getImage();
@@ -179,7 +179,7 @@ public class Juego extends InterfaceJuego
 		}
 		if(entorno.sePresiono(entorno.TECLA_ARRIBA)) {
 			mago.setSaltar(true);
-			dS.setearTodo();
+			salto=true;
 		}
 		comprobar();
 	}
@@ -378,14 +378,14 @@ public class Juego extends InterfaceJuego
 			if (Fisica.colision(personajes[0], vigas)) {
 				mago.aux=0; 
 				incremento++;//agregar en nueva version
-				
 				if(incremento>150) {
 					dS.setearTodo();
+					salto=false;
 				}
 			}
 			if(!Fisica.colision(personajes[i], vigas)) {
 				personajes[i].caer();
-				if(i==0 && mago.isSaltar()==false) {
+				if(i==0 && salto==false) {
 					dS.setAnimar(true);
 					incremento=0;
 				}
