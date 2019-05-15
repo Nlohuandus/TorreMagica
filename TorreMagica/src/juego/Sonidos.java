@@ -2,7 +2,6 @@ package juego;
 
 import java.io.File;
 
-import javax.print.DocFlavor.STRING;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 public class Sonidos {
@@ -43,6 +42,7 @@ Sonidos(String s){
 	}
 }
 	public static void main (String [] args) {
+		@SuppressWarnings("unused")
 		Sonidos s=new Sonidos("saltar");
 	}
 	/*static void reproducir(File sonido) {
