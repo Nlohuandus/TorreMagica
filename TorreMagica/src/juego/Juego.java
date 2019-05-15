@@ -22,7 +22,7 @@ public class Juego extends InterfaceJuego
 	boolean[] contra= new boolean [cantEnemigos];
 	Image corazon =new ImageIcon("corazon.png").getImage();
 	Image corazonRoto =new ImageIcon("corazon2.png").getImage();
-	int contador=0,vueltasSalto=23,margen,incremento=0,cont=0;
+	int contador=0,vueltasSalto=23,margen,incremento=0,cont=0,puntaje=0;
 	//Sonidos s=new Sonidos();
 	cajasDeTexto tiempo;
 	Sonidos s;
@@ -204,6 +204,15 @@ public class Juego extends InterfaceJuego
 				y=480;
 			}
 			personajes[i]=new Mago(x, y, 50.0,50.0, 0);
+		}
+	}
+	
+	void puntaje() {
+		int puntaje=0;
+		for(int i =1; i<personajes.length;i++) {
+			if(personajes[i].muerte==true) {
+				
+			}
 		}
 	}
 	
