@@ -154,6 +154,7 @@ public class Mago {
 			}else {//nuevo
 				milisegundos++;
 				if ((int)milisegundos/60 == 5) {
+					
 					personajes[i].estado=true;
 					milisegundos=0;
 				}

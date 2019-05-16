@@ -12,7 +12,7 @@ public class Juego extends InterfaceJuego
 {
 	// El objeto Entorno que controla el tiempo y otros
 	private Entorno entorno;
-	int ancho=600, alto=900,cantEnemigos=30;
+	int ancho=600, alto=900,cantEnemigos=5;
 	Mago[] personajes= new Mago[cantEnemigos];
 	Mago mago;
 	Sprite sprite;
@@ -22,9 +22,10 @@ public class Juego extends InterfaceJuego
 	boolean[] contra= new boolean [cantEnemigos];
 	Image corazon =new ImageIcon("corazon.png").getImage();
 	Image corazonRoto =new ImageIcon("corazon2.png").getImage();
-	int contador=0,vueltasSalto=23,margen,incremento=0,cont=0,puntaje=0;
+	int contador=0,vueltasSalto=23,margen,incremento=0,cont=0,puntaje=0,velocidadEnemigo=0;
 	cajasDeTexto tiempo;
 	double milisegundo=0;
+	Animaciones animacionGanar=new Animaciones("ganar",6, 11);
 
 	
 	// Variables y métodos propios de cada grupo
@@ -64,7 +65,7 @@ public class Juego extends InterfaceJuego
 		// Procesamiento de un instante de tiempo
 		// ...
 		//Carteles.cartel(entorno,(ancho/2)-100, alto-600,"probamos");
-		milisegundo +=1;
+		
 		for (Disparo d : mago.lDisparo) {//nueva version
 			d.Dibujar(this.entorno);//nueva version
 		}
@@ -73,7 +74,7 @@ public class Juego extends InterfaceJuego
 		//mago.Dibujar(entorno);
 		
 		dibujarPersonajes();
-		
+		puntaje();
 		if(mago.derecha) {
 			dS.animacionDerecha(entorno,mago.getPosX(),mago.getPosY());
 		}else{
@@ -85,6 +86,8 @@ public class Juego extends InterfaceJuego
 		dibujarCorazones((ancho/2)-250, alto-150);
 		
 		if(mago.isEstado() && !ganar()) {
+			milisegundo +=1;
+			System.out.println(puntaje);
 			fisicas();
 			mover();
 			comportamientoEnemigo(ancho);
@@ -115,7 +118,14 @@ public class Juego extends InterfaceJuego
 			
 		}else {
 			if(ganar()) {
-				Carteles.cartel(entorno,(ancho/2)-100, alto-600,"Ganaste");
+				animacionGanar.animar(entorno, 200, 300);
+				Carteles.cartel(entorno,(ancho/2)-100, alto-500,"Ganaste");
+				Carteles.cartel(entorno,(ancho/2)-100, alto-400,"Siguiente nivel");
+				Carteles.cartel(entorno,(ancho/2)-100, alto-300,"Presione enter");
+				if (entorno.sePresiono(entorno.TECLA_ENTER)) {
+					velocidadEnemigo++;
+					new Juego();
+				}
 			}else {
 				sprite.animar(entorno,mago.getPosX(),mago.getPosY());
 				Carteles.cartel(entorno,(ancho/2)-100, alto-600,"PERDEDOR");
@@ -182,7 +192,7 @@ public class Juego extends InterfaceJuego
 		if(entorno.sePresiono(entorno.TECLA_ARRIBA)) {
 			mago.setSaltar(true);
 			salto=true;
-			//=new Sonidos("saltar");
+			//s=new Sonidos("saltar");
 		}
 		comprobar();
 	}
@@ -207,12 +217,13 @@ public class Juego extends InterfaceJuego
 	}
 	
 	void puntaje() {
-		int puntaje=0;
+		int punta=0;
 		for(int i =1; i<personajes.length;i++) {
 			if(personajes[i].muerte==true) {
-				
+				punta+=100;
 			}
 		}
+		this.puntaje=punta;
 	}
 	
 	public void dibujarPersonajes() {
@@ -300,6 +311,7 @@ public class Juego extends InterfaceJuego
 		for(int i=1; i<personajes.length;i++) {
 			if(Fisica.congelar(personajes[i], mago)) {
 				personajes[i].setEstado(false);
+				puntaje+=5;
 			}
 			
 			//System.out.println("posy: "+personajes[i].getPosY());
@@ -329,14 +341,14 @@ public class Juego extends InterfaceJuego
 
 	public void compórtamiento1(int i) {
 		if (contra[i]==true) {
-			personajes[i].avanzar();
-			personajes[i].avanzar();
-			personajes[i].avanzar();
+			for(int j=0; j<3+velocidadEnemigo;j++) {
+				personajes[i].avanzar();
+			}
 			
 		}else {
-			personajes[i].retroceder();
-			personajes[i].retroceder();
-			personajes[i].retroceder();
+			for(int j=0; j<3+velocidadEnemigo;j++) {
+				personajes[i].retroceder();
+			}
 			
 		}
 		if(personajes[i].getPosX()<0 && contra[i]==false) {
@@ -359,10 +371,15 @@ public class Juego extends InterfaceJuego
 		
 		}
 		if (contra[i]==true) {
-			personajes[i].avanzar();
-			personajes[i].avanzar();
+			for(int j=0; j<2+velocidadEnemigo;j++) {
+				personajes[i].avanzar();
+			}
+
 		}else {
-			personajes[i].retroceder();
+			for(int j=0; j<1+velocidadEnemigo;j++) {
+				personajes[i].retroceder();
+			}
+			
 		}
 		if(personajes[i].getPosX()<0 && contra[i]==false) {
 			this.contra[i]=true;
@@ -373,9 +390,15 @@ public class Juego extends InterfaceJuego
 	
 	public void comportamiento3(int i) {
 		if (contra[i]==false) {
-			personajes[i].avanzar();
+			for(int j=0; j<1+velocidadEnemigo;j++) {
+				personajes[i].avanzar();
+			}
+			
 		}else {
-			personajes[i].retroceder();
+			for(int j=0; j<1+velocidadEnemigo;j++) {
+				personajes[i].retroceder();
+			}
+			
 		}
 		if(personajes[i].getPosX()<0 && contra[i]==true) {
 			this.contra[i]=false;
