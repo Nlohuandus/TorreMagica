@@ -22,8 +22,8 @@ public class Juego extends InterfaceJuego
 	boolean[] contra= new boolean [cantEnemigos];
 	Image corazon =new ImageIcon("corazon.png").getImage();
 	Image corazonRoto =new ImageIcon("corazon2.png").getImage();
-	int contador=0,vueltasSalto=23,margen,incremento=0,cont=0,puntaje=0,velocidadEnemigo=0;
-	cajasDeTexto tiempo;
+	int contador=0,vueltasSalto=23,margen,incremento=0,cont=0,puntaje,puntTot=0,velocidadEnemigo=0,nivel=1;
+	cajasDeTexto tiempo,puntos,nivelT,puntosTotales;
 	double milisegundo=0;
 	Animaciones animacionGanar=new Animaciones("ganar",6, 11);
 
@@ -42,7 +42,9 @@ public class Juego extends InterfaceJuego
 		this.mago=personajes[0];
 		estados();
 		this.tiempo=new cajasDeTexto((ancho/2)-250, alto-210, ancho+30, (alto-margen)+20, 30);
-		
+		this.puntos=new cajasDeTexto((ancho/2)-50, alto-210, ancho+30, (alto-margen)+20, 30);
+		this.nivelT=new cajasDeTexto((ancho/2)-50, alto-150, ancho+30, (alto-margen)+20, 30);
+		this.puntosTotales=new cajasDeTexto((ancho/2)-50, alto-180, ancho+30, (alto-margen)+20, 30);
 		this.sprite=new Sprite(mago.getPosX(),mago.getPosY());
 		this.dS=new DisparoSprite(mago.getPosX(),mago.getPosY());
 		
@@ -52,6 +54,31 @@ public class Juego extends InterfaceJuego
 		// Inicia el juego!
 		this.entorno.iniciar();
 		
+	}
+	
+	Juego(int puntaje, int nivel, int velEnemigo){
+		// Inicializa el objeto entorno
+		this.entorno = new Entorno(this, "Torre Magica - Grupo Apellido1 - Apellido2 -Apellido3 - V0.01", ancho, alto);
+		
+		// Inicializar lo que haga falta para el juego
+		// ...
+		posPersonajes();
+		this.mago=personajes[0];
+		estados();
+		this.tiempo=new cajasDeTexto((ancho/2)-250, alto-210, ancho+30, (alto-margen)+20, 30);
+		this.puntos=new cajasDeTexto((ancho/2)-50, alto-210, ancho+30, (alto-margen)+20, 30);
+		this.nivelT=new cajasDeTexto((ancho/2)-50, alto-150, ancho+30, (alto-margen)+20, 30);
+		this.puntosTotales=new cajasDeTexto((ancho/2)-50, alto-180, ancho+30, (alto-margen)+20, 30);
+		this.sprite=new Sprite(mago.getPosX(),mago.getPosY());
+		this.dS=new DisparoSprite(mago.getPosX(),mago.getPosY());
+		this.puntTot=puntaje;
+		this.nivel=nivel;
+		this.velocidadEnemigo=velEnemigo;
+		
+		
+		
+		// Inicia el juego!
+		this.entorno.iniciar();
 	}
 
 	/**
@@ -83,6 +110,10 @@ public class Juego extends InterfaceJuego
 
 		entorno.dibujarRectangulo(ancho/2, alto-110, ancho+30, (alto-margen)+20,0.0, Color.gray);
 		tiempo.dibujar(entorno,"Tiempo :" + ((int) milisegundo /60));
+		
+		puntos.dibujar(entorno,"Puntos de nivel :" + puntaje);
+		puntosTotales.dibujar(entorno,"Puntos totales :" + puntTot);
+		nivelT.dibujar(entorno,"Nivel :" + nivel);
 		dibujarCorazones((ancho/2)-250, alto-150);
 		
 		if(mago.isEstado() && !ganar()) {
@@ -118,15 +149,15 @@ public class Juego extends InterfaceJuego
 			
 		}else {
 			if(ganar()) {
-				int punt=puntaje;
 				animacionGanar.animar(entorno, 200, 300);
 				Carteles.cartel(entorno,(ancho/2)-100, alto-500,"Ganaste");
 				Carteles.cartel(entorno,(ancho/2)-100, alto-400,"Siguiente nivel");
 				Carteles.cartel(entorno,(ancho/2)-100, alto-300,"Presione enter");
 				if (entorno.sePresiono(entorno.TECLA_ENTER)) {
 					velocidadEnemigo++;
-					new Juego();
-					puntaje=punt;
+					nivel++;
+					puntTot+=puntaje;
+					new Juego(puntTot, nivel, velocidadEnemigo);
 					
 				}
 			}else {
@@ -344,12 +375,12 @@ public class Juego extends InterfaceJuego
 
 	public void compórtamiento1(int i) {
 		if (contra[i]==true) {
-			for(int j=0; j<3+velocidadEnemigo;j++) {
+			for(int j=0; j<2+velocidadEnemigo;j++) {
 				personajes[i].avanzar();
 			}
 			
 		}else {
-			for(int j=0; j<3+velocidadEnemigo;j++) {
+			for(int j=0; j<2+velocidadEnemigo;j++) {
 				personajes[i].retroceder();
 			}
 			
