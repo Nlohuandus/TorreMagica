@@ -118,6 +118,7 @@ public class Juego extends InterfaceJuego
 			
 		}else {
 			if(ganar()) {
+				int punt=puntaje;
 				animacionGanar.animar(entorno, 200, 300);
 				Carteles.cartel(entorno,(ancho/2)-100, alto-500,"Ganaste");
 				Carteles.cartel(entorno,(ancho/2)-100, alto-400,"Siguiente nivel");
@@ -125,6 +126,8 @@ public class Juego extends InterfaceJuego
 				if (entorno.sePresiono(entorno.TECLA_ENTER)) {
 					velocidadEnemigo++;
 					new Juego();
+					puntaje=punt;
+					
 				}
 			}else {
 				sprite.animar(entorno,mago.getPosX(),mago.getPosY());
