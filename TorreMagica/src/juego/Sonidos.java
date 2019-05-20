@@ -1,7 +1,6 @@
 package juego;
 
 import java.io.File;
-import java.io.InputStream;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
