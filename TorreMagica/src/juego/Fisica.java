@@ -24,25 +24,21 @@ public class Fisica {
 
 	public static boolean congelar(Personajes enemigo, Personajes mago) {
 		if (!mago.lDisparo.isEmpty()) {
-			for (Disparo d: mago.lDisparo) {
-			if (enemigo.getPosY() <= d.getY()
-					&& enemigo.getPosY() >= d.getY() - 50) {
-				if (enemigo.getPosX() <= d.getX()
-						&& enemigo.getPosX() >= d.getX() - 50) {
-					return true;
-				} else if (enemigo.getPosX() <= d.getX()
-						&& enemigo.getPosX() >= d.getX() + 50) {
-					return true;
+			for (Disparo d : mago.lDisparo) {
+				if (enemigo.getPosY() <= d.getY() && enemigo.getPosY() >= d.getY() - 50) {
+					if (enemigo.getPosX() <= d.getX() && enemigo.getPosX() >= d.getX() - 50) {
+						return true;
+					} else if (enemigo.getPosX() <= d.getX() && enemigo.getPosX() >= d.getX() + 50) {
+						return true;
+					}
+
 				}
 			}
-
-		}}
-
+		}
 		return false;
 	}
 
 	public static void colision(Personajes[] personajes, Personajes muerto, int i) {
-
 		for (int j = i + 1; j < personajes.length; j++) {
 			if (personajes[j].isEstado()) {
 				if (personajes[j].getPosY() <= muerto.getPosY()

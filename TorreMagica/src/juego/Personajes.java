@@ -19,8 +19,7 @@ public class Personajes {
 	int aux, velocidad, cantCorazones = 3;
 	double milisegundos;
 	boolean[] corazones = { true, true, true };
-
-	Personajes(double x, double y, double ancho, double alto, double angulo) {
+	Personajes (double x, double y, double ancho, double alto, double angulo) {
 		this.x = x;
 		this.y = y;
 		this.ancho = ancho;
@@ -112,9 +111,7 @@ public class Personajes {
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
-
-	public void contacto(Personajes[] personajes) {// si el mago es tocado por un enemigo
-
+	public void contacto(Personajes [] personajes) {// si el mago es tocado por un enemigo
 		for (int i = 1; i < personajes.length; i++) {
 			if (personajes[i].estado == true) {
 				// revisa si el enemigo esta congelado
