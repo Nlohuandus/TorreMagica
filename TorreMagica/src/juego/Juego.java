@@ -12,8 +12,8 @@ public class Juego extends InterfaceJuego {
 	// El objeto Entorno que controla el tiempo y otros
 	private Entorno entorno;
 	int ancho = 600, alto = 900, cantEnemigos = 5;
-	Mago[] personajes = new Mago[cantEnemigos];
-	Mago mago;
+	Personajes [] personajes = new Personajes [cantEnemigos];
+	Personajes mago;
 	Sprite sprite;
 	public DisparoSprite dS;
 	Viga[] vigas = new Viga[11];
@@ -221,7 +221,7 @@ public class Juego extends InterfaceJuego {
 				x = 444;
 				y = 480;
 			}
-			personajes[i] = new Mago(x, y, 50.0, 50.0, 0);
+			personajes[i] = new Personajes(x, y, 50.0, 50.0, 0);
 		}
 	}
 

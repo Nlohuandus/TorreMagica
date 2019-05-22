@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import entorno.Entorno;
 
-public class Mago {
+public class Personajes {
 	private double x;
 	private double y;
 	public double ancho;
@@ -20,7 +20,7 @@ public class Mago {
 	double milisegundos;
 	boolean[] corazones = { true, true, true };
 
-	Mago(double x, double y, double ancho, double alto, double angulo) {
+	Personajes (double x, double y, double ancho, double alto, double angulo) {
 		this.x = x;
 		this.y = y;
 		this.ancho = ancho;
@@ -113,7 +113,7 @@ public class Mago {
 		this.estado = estado;
 	}
 
-	public void contacto(Mago[] personajes) {// si el mago es tocado por un enemigo
+	public void contacto(Personajes [] personajes) {// si el mago es tocado por un enemigo
 
 		for (int i = 1; i < personajes.length; i++) {
 			if (personajes[i].estado == true) {
