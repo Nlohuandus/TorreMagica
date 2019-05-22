@@ -12,8 +12,8 @@ public class Juego extends InterfaceJuego {
 	// El objeto Entorno que controla el tiempo y otros
 	private Entorno entorno;
 	int ancho = 600, alto = 900, cantEnemigos = 5;
-	Mago[] personajes = new Mago[cantEnemigos];
-	Mago mago;
+	Personajes[] personajes = new Personajes[cantEnemigos];
+	Personajes mago;
 	Sprite sprite;
 	public DisparoSprite dS;
 	Viga[] vigas = new Viga[11];
@@ -26,6 +26,7 @@ public class Juego extends InterfaceJuego {
 	cajasDeTexto tiempo, puntos, nivelT, puntosTotales;
 	double milisegundo = 0;
 	Animaciones animacionGanar = new Animaciones("ganar", 6, 11);
+	int largoLista=-1;
 
 	// Variables y métodos propios de cada grupo
 	// ...
@@ -83,10 +84,20 @@ public class Juego extends InterfaceJuego {
 	public void tick() {
 		// Procesamiento de un instante de tiempo
 		// ...
-		for (Disparo d : mago.lDisparo) {
-			d.Dibujar(this.entorno);
-		}
+		try {
+			for (Disparo d : mago.lDisparo) {
+				d.Dibujar(this.entorno);
+				largoLista = mago.lDisparo.size() - 1;
+				if (d.getX() > ancho - 20 ) {
+					mago.lDisparo.remove(d);
+				} else if (d.getX() < 20) {
+					mago.lDisparo.remove(d);
+				}
+			}
+		} catch (Exception e) {
 
+		}
+		
 		dibujarVigas();
 		dibujarPersonajes();
 		puntaje();
@@ -105,7 +116,7 @@ public class Juego extends InterfaceJuego {
 
 		if (mago.isEstado() && !ganar()) {
 			milisegundo += 1;
-			System.out.println(puntaje);
+			// System.out.println(puntaje);
 			fisicas();
 			mover();
 			comportamientoEnemigo(ancho);
@@ -221,7 +232,7 @@ public class Juego extends InterfaceJuego {
 				x = 444;
 				y = 480;
 			}
-			personajes[i] = new Mago(x, y, 50.0, 50.0, 0);
+			personajes[i] = new Personajes(x, y, 50.0, 50.0, 0);
 		}
 	}
 
@@ -314,6 +325,7 @@ public class Juego extends InterfaceJuego {
 			if (Fisica.congelar(personajes[i], mago)) {
 				personajes[i].setEstado(false);
 				puntaje += 5;
+				mago.lDisparo.remove(largoLista);
 			}
 			if (personajes[i].isEstado()) {
 				if (i % 2 == 0 && i != 4) {

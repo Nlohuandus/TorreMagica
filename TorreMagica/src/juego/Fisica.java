@@ -1,7 +1,7 @@
 package juego;
 
 public class Fisica {
-	public static boolean colision(Mago mago, Viga[] vigas) {
+	public static boolean colision(Personajes mago, Viga[] vigas) {
 		for (int i = 0; i < vigas.length; i++) {
 			if (mago.getPosY() + mago.getAlto() == vigas[i].posy) {
 				if (mago.getPosX() > vigas[i].bordeIz && mago.getPosX() < vigas[i].bordeDer) {
@@ -12,7 +12,7 @@ public class Fisica {
 		return false;
 	}
 
-	public static void margen(int margen, Mago mago) {
+	public static void margen(int margen, Personajes mago) {
 		if (mago.getPosY() < -5) {
 			mago.inicio(margen);
 		}
@@ -22,26 +22,26 @@ public class Fisica {
 
 	}
 
-	public static boolean congelar(Mago enemigo, Mago mago) {
-		if (mago.lDisparo.size() > 0) {
-			int i = mago.lDisparo.size() - 1;
-			if (enemigo.getPosY() <= mago.lDisparo.get(i).getY()
-					&& enemigo.getPosY() >= mago.lDisparo.get(i).getY() - 50) {
-				if (enemigo.getPosX() <= mago.lDisparo.get(i).getX()
-						&& enemigo.getPosX() >= mago.lDisparo.get(i).getX() - 50) {
+	public static boolean congelar(Personajes enemigo, Personajes mago) {
+		if (!mago.lDisparo.isEmpty()) {
+			for (Disparo d: mago.lDisparo) {
+			if (enemigo.getPosY() <= d.getY()
+					&& enemigo.getPosY() >= d.getY() - 50) {
+				if (enemigo.getPosX() <= d.getX()
+						&& enemigo.getPosX() >= d.getX() - 50) {
 					return true;
-				} else if (enemigo.getPosX() <= mago.lDisparo.get(i).getX()
-						&& enemigo.getPosX() >= mago.lDisparo.get(i).getX() + 50) {
+				} else if (enemigo.getPosX() <= d.getX()
+						&& enemigo.getPosX() >= d.getX() + 50) {
 					return true;
 				}
 			}
 
-		}
+		}}
 
 		return false;
 	}
 
-	public static void colision(Mago[] personajes, Mago muerto, int i) {
+	public static void colision(Personajes[] personajes, Personajes muerto, int i) {
 
 		for (int j = i + 1; j < personajes.length; j++) {
 			if (personajes[j].isEstado()) {
