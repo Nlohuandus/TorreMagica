@@ -259,28 +259,33 @@ public class Juego extends InterfaceJuego {
 		for (int i = 0; i < personajes.length; i++) {
 			if (i == 0) {
 				if (personajes[i].isEstado() == true) {
-					if (mago.vulnerable == false && cont < 25) {
-						if (mago.dgolpe) {
-							mago.retroceder();
-							entorno.dibujarImagen(sprite.golpeIz, mago.getPosX(), mago.getPosY(), 0.0);
-						} else {
-							mago.avanzar();
-							entorno.dibujarImagen(sprite.golpeDe, mago.getPosX(), mago.getPosY(), 0.0);
-						}
-
-					} else {
-						if (mago.isSaltar()) {
-							if (mago.mover) {
-								entorno.dibujarImagen(sprite.saltoFin2, mago.getPosX(), mago.getPosY(), 0.0);
+					if(pausa) {
+						sprite.dibujarP(entorno, mago.getPosX(), mago.getPosY());
+					}else {
+						if (mago.vulnerable == false && cont < 25) {
+							if (mago.dgolpe) {
+								mago.retroceder();
+								entorno.dibujarImagen(sprite.golpeIz, mago.getPosX(), mago.getPosY(), 0.0);
 							} else {
-								entorno.dibujarImagen(sprite.saltoFin, mago.getPosX(), mago.getPosY(), 0.0);
+								mago.avanzar();
+								entorno.dibujarImagen(sprite.golpeDe, mago.getPosX(), mago.getPosY(), 0.0);
 							}
 
 						} else {
-							sprite.dibujar(entorno, mago.getPosX(), mago.getPosY(), mago.derecha, mago.mover);
-						}
+							if (mago.isSaltar()) {
+								if (mago.mover) {
+									entorno.dibujarImagen(sprite.saltoFin2, mago.getPosX(), mago.getPosY(), 0.0);
+								} else {
+									entorno.dibujarImagen(sprite.saltoFin, mago.getPosX(), mago.getPosY(), 0.0);
+								}
 
+							} else {
+								sprite.dibujar(entorno, mago.getPosX(), mago.getPosY(), mago.derecha, mago.mover);
+							}
+
+						}
 					}
+					
 				}
 
 			} else {

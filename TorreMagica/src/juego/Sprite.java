@@ -29,6 +29,10 @@ public class Sprite {
 		this.y = y;
 		setImagenes();
 	}
+	
+	public void dibujarP(Entorno e, double x, double y) {
+		e.dibujarImagen(imagenesIde[mostrador], x, y + 15, 0.0);
+	}
 
 	public void dibujar(Entorno e, double x, double y, boolean derecha, boolean mover) {
 
