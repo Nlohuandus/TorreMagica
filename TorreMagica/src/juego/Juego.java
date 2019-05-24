@@ -17,7 +17,7 @@ public class Juego extends InterfaceJuego {
 	Sprite sprite;
 	public DisparoSprite dS;
 	Viga[] vigas = new Viga[11];
-	boolean mantener = false, salto = false;
+	boolean mantener = false, salto = false, pausa=false;
 	boolean[] contra = new boolean[cantEnemigos];
 	Image corazon = new ImageIcon("corazon.png").getImage();
 	Image corazonRoto = new ImageIcon("corazon2.png").getImage();
@@ -113,59 +113,68 @@ public class Juego extends InterfaceJuego {
 		puntosTotales.dibujar(entorno, "Puntos totales :" + puntTot);
 		nivelT.dibujar(entorno, "Nivel :" + nivel);
 		dibujarCorazones((ancho / 2) - 250, alto - 150);
-
-		if (mago.isEstado() && !ganar()) {
-			milisegundo += 1;
-			// System.out.println(puntaje);
-			fisicas();
-			mover();
-			comportamientoEnemigo(ancho);
-			mago.contacto(personajes);
-			if (mago.vulnerable == false) {
-				cont++;
-				if (cont > 150) {
-					mago.vulnerable = true;
-					cont = 0;
-				}
+		if (entorno.sePresiono(entorno.TECLA_ENTER)) {
+			if(pausa) {
+				pausa=false;
+			}else {
+				pausa=true;
 			}
-
-			if (mago.isSaltar()) {
-				contador++;
-				if (contador < vueltasSalto - 5) {
-					mago.saltar();
-					dS.setearTodo();
-
-				} else if (contador == vueltasSalto) {
-					mago.setSaltar(false);
-					contador = 0;
-				}
-
-			}
-
-		} else {
-			if (ganar()) {
-				animacionGanar.animar(entorno, 200, 300);
-				Carteles.cartel(entorno, (ancho / 2) - 100, alto - 500, "Ganaste");
-				Carteles.cartel(entorno, (ancho / 2) - 100, alto - 400, "Siguiente nivel");
-				Carteles.cartel(entorno, (ancho / 2) - 100, alto - 300, "Presione enter");
-				if (entorno.sePresiono(entorno.TECLA_ENTER)) {
-					velocidadEnemigo++;
-					nivel++;
-					puntTot += puntaje;
-					new Juego(puntTot, nivel, velocidadEnemigo);
-
-				}
-			} else {
-				sprite.animar(entorno, mago.getPosX(), mago.getPosY());
-				Carteles.cartel(entorno, (ancho / 2) - 100, alto - 600, "PERDEDOR");
-				Carteles.cartel(entorno, (ancho / 2) - 100, alto - 500, "Para reintentar");
-				Carteles.cartel(entorno, (ancho / 2) - 100, alto - 400, "Presione enter");
-				if (entorno.sePresiono(entorno.TECLA_ENTER)) {
-					new Juego();
-				}
-			}
-
 		}
+		if(!pausa) {
+			if (mago.isEstado() && !ganar()) {
+				milisegundo += 1;
+				// System.out.println(puntaje);
+				fisicas();
+				mover();
+				comportamientoEnemigo(ancho);
+				mago.contacto(personajes);
+				if (mago.vulnerable == false) {
+					cont++;
+					if (cont > 150) {
+						mago.vulnerable = true;
+						cont = 0;
+					}
+				}
+
+				if (mago.isSaltar()) {
+					contador++;
+					if (contador < vueltasSalto - 5) {
+						mago.saltar();
+						dS.setearTodo();
+
+					} else if (contador == vueltasSalto) {
+						mago.setSaltar(false);
+						contador = 0;
+					}
+
+				}
+
+			} else {
+				if (ganar()) {
+					animacionGanar.animar(entorno, 200, 300);
+					Carteles.cartel(entorno, (ancho / 2) - 100, alto - 500, "Ganaste");
+					Carteles.cartel(entorno, (ancho / 2) - 100, alto - 400, "Siguiente nivel");
+					Carteles.cartel(entorno, (ancho / 2) - 100, alto - 300, "Presione enter");
+					if (entorno.sePresiono(entorno.TECLA_ENTER)) {
+						velocidadEnemigo++;
+						nivel++;
+						puntTot += puntaje;
+						new Juego(puntTot, nivel, velocidadEnemigo);
+
+					}
+				} else {
+					sprite.animar(entorno, mago.getPosX(), mago.getPosY());
+					Carteles.cartel(entorno, (ancho / 2) - 100, alto - 600, "PERDEDOR");
+					Carteles.cartel(entorno, (ancho / 2) - 100, alto - 500, "Para reintentar");
+					Carteles.cartel(entorno, (ancho / 2) - 100, alto - 400, "Presione enter");
+					if (entorno.sePresiono(entorno.TECLA_ENTER)) {
+						new Juego();
+					}
+				}
+
+			}
+		}
+
 	}
 
 	public void comprobar() {
