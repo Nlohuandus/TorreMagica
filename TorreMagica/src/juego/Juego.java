@@ -17,7 +17,7 @@ public class Juego extends InterfaceJuego {
 	Sprite sprite;
 	public DisparoSprite dS;
 	Viga[] vigas = new Viga[11];
-	boolean mantener = false, salto = false, pausa=false;
+	boolean mantener = false, salto = false, pausa=false, eliminar=false;
 	boolean[] contra = new boolean[cantEnemigos];
 	Image corazon = new ImageIcon("corazon.png").getImage();
 	Image corazonRoto = new ImageIcon("corazon2.png").getImage();
@@ -113,14 +113,11 @@ public class Juego extends InterfaceJuego {
 		puntosTotales.dibujar(entorno, "Puntos totales :" + puntTot);
 		nivelT.dibujar(entorno, "Nivel :" + nivel);
 		dibujarCorazones((ancho / 2) - 250, alto - 150);
-		if (entorno.sePresiono(entorno.TECLA_ENTER)) {
-			if(pausa) {
-				pausa=false;
-			}else {
-				pausa=true;
-			}
+		pausar();
+		if(pausa) {
+			Carteles.cartel(entorno, (ancho / 2) - 100, alto - 600, "Pausa");
 		}
-		if(!pausa) {
+		else {
 			if (mago.isEstado() && !ganar()) {
 				milisegundo += 1;
 				// System.out.println(puntaje);
@@ -175,6 +172,16 @@ public class Juego extends InterfaceJuego {
 			}
 		}
 
+	}
+	
+	public void pausar() {
+		if (entorno.sePresiono(entorno.TECLA_ENTER)) {
+			if(pausa) {
+				pausa=false;
+			}else {
+				pausa=true;
+			}
+		}
 	}
 
 	public void comprobar() {
@@ -338,8 +345,7 @@ public class Juego extends InterfaceJuego {
 		for (int i = 1; i < personajes.length; i++) {
 			if (Fisica.congelar(personajes[i], mago)) {
 				personajes[i].setEstado(false);
-				puntaje += 5;
-				mago.lDisparo.remove(largoLista);
+				//mago.lDisparo.remove(largoLista);
 			}
 			if (personajes[i].isEstado()) {
 				if (i % 2 == 0 && i != 4) {

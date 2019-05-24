@@ -25,7 +25,7 @@ public class Fisica {
 	public static boolean congelar(Personajes enemigo, Personajes mago) {
 		if (!mago.lDisparo.isEmpty()) {
 			for (Disparo d : mago.lDisparo) {
-				if (enemigo.getPosY() <= d.getY() && enemigo.getPosY() >= d.getY() - 50) {
+				if (enemigo.getPosY() <= d.getY() && enemigo.getPosY() >= d.getY() - 80) {
 					if (enemigo.getPosX() <= d.getX() && enemigo.getPosX() >= d.getX() - 50) {
 						return true;
 					} else if (enemigo.getPosX() <= d.getX() && enemigo.getPosX() >= d.getX() + 50) {
