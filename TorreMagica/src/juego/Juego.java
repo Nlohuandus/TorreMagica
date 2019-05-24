@@ -18,7 +18,7 @@ public class Juego extends InterfaceJuego
 	Sprite sprite;
 	public DisparoSprite dS;
 	Viga[] vigas=new Viga[11];
-	boolean mantener=false,salto=false;
+	boolean mantener=false,salto=false,pausa;
 	boolean[] contra= new boolean [cantEnemigos];
 	Image corazon =new ImageIcon("corazon.png").getImage();
 	Image corazonRoto =new ImageIcon("corazon2.png").getImage();
@@ -47,6 +47,7 @@ public class Juego extends InterfaceJuego
 		this.puntosTotales=new cajasDeTexto((ancho/2)-50, alto-180, ancho+30, (alto-margen)+20, 30);
 		this.sprite=new Sprite(mago.getPosX(),mago.getPosY());
 		this.dS=new DisparoSprite(mago.getPosX(),mago.getPosY());
+		this.pausa=false;
 		
 		
 		
@@ -117,35 +118,48 @@ public class Juego extends InterfaceJuego
 		dibujarCorazones((ancho/2)-250, alto-150);
 		
 		if(mago.isEstado() && !ganar()) {
-			milisegundo +=1;
-			System.out.println(puntaje);
-			fisicas();
-			mover();
-			comportamientoEnemigo(ancho);
-			mago.contacto(personajes);
-			if(mago.vulnerable==false){
-				cont++;
-				if(cont>150){
-					mago.vulnerable=true;
-					cont=0;
+			if (entorno.sePresiono(entorno.TECLA_ENTER)) {
+				if(pausa) {
+					pausa=false;
+				}else {
+					pausa=true;
 				}
+				
 			}
-			
-			
-
-			if(mago.isSaltar()) {
-				contador++;
-				if (contador<vueltasSalto-5) {
-					mago.saltar();
-					dS.setearTodo();
-					
-				}else if(contador==vueltasSalto) {
-					mago.setSaltar(false);
-					contador=0;
+			if(!pausa) {
+				milisegundo +=1;
+				System.out.println(puntaje);
+				fisicas();
+				mover();
+				comportamientoEnemigo(ancho);
+				mago.contacto(personajes);
+				if(mago.vulnerable==false){
+					cont++;
+					if(cont>150){
+						mago.vulnerable=true;
+						cont=0;
+					}
 				}
+				
+				
 
+				if(mago.isSaltar()) {
+					contador++;
+					if (contador<vueltasSalto-5) {
+						mago.saltar();
+						dS.setearTodo();
+						
+					}else if(contador==vueltasSalto) {
+						mago.setSaltar(false);
+						contador=0;
+					}
+
+				}
+				
+				
+			}else {
+				Carteles.cartel(entorno,(ancho/2)-100, alto-500,"Pausa");
 			}
-			
 			
 		}else {
 			if(ganar()) {
