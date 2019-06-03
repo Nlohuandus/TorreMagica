@@ -17,7 +17,7 @@ public class Juego extends InterfaceJuego {
 	Sprite sprite;
 	public DisparoSprite dS;
 	Viga[] vigas = new Viga[11];
-	boolean mantener = false, salto = false, pausa=false, eliminar=false;
+	boolean mantener = false, salto = false, pausa=false, eliminar=false, cartel=false;
 	boolean[] contra = new boolean[cantEnemigos];
 	Image corazon = new ImageIcon("corazon.png").getImage();
 	Image corazonRoto = new ImageIcon("corazon2.png").getImage();
@@ -113,7 +113,10 @@ public class Juego extends InterfaceJuego {
 		puntosTotales.dibujar(entorno, "Puntos totales :" + puntTot);
 		nivelT.dibujar(entorno, "Nivel :" + nivel);
 		dibujarCorazones((ancho / 2) - 250, alto - 150);
-		pausar();
+		if(!ganar() && cartel==false){
+			pausar();
+		}
+		
 		if(pausa) {
 			Carteles.cartel(entorno, (ancho / 2) - 100, alto - 600, "Pausa");
 		}
@@ -153,6 +156,7 @@ public class Juego extends InterfaceJuego {
 					Carteles.cartel(entorno, (ancho / 2) - 100, alto - 400, "Siguiente nivel");
 					Carteles.cartel(entorno, (ancho / 2) - 100, alto - 300, "Presione enter");
 					if (entorno.sePresiono(entorno.TECLA_ENTER)) {
+						
 						velocidadEnemigo++;
 						nivel++;
 						puntTot += puntaje;
@@ -160,6 +164,7 @@ public class Juego extends InterfaceJuego {
 
 					}
 				} else {
+					cartel=true;
 					sprite.animar(entorno, mago.getPosX(), mago.getPosY());
 					Carteles.cartel(entorno, (ancho / 2) - 100, alto - 600, "PERDEDOR");
 					Carteles.cartel(entorno, (ancho / 2) - 100, alto - 500, "Para reintentar");
